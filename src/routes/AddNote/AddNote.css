@@ -1,0 +1,25 @@
+form {
+  text-align: left;
+}
+
+input, textarea {
+  width: 100%;
+  max-width: 500px;
+}
+
+input[type="number"] {
+  width: 50px;
+}
+
+label {
+  display: block;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.radio-row {
+  display:flex;
+  border:1px solid black;
+}

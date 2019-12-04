@@ -1,0 +1,36 @@
+.student ul {
+  list-style-type:none;
+  padding:0;
+  display:flex;
+  justify-content:space-between;
+}
+
+.student li {
+  margin:5px;
+}
+
+button {
+  font-size:20px;
+}
+
+.edit {
+  background-color:lightgray;
+}
+
+.student-option button {
+  background-color:darkgray;
+}
+
+ul.class-list {
+  list-style-type:none;
+  padding:0;
+  background-color:#eee;
+}
+
+.class-list li:nth-child(even) {
+  background-color: #ccc;
+}
+
+li.student-option:nth-child(even) {
+  background-color: inherit;
+}

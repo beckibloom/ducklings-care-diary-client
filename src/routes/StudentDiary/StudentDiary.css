@@ -1,0 +1,38 @@
+
+.bold {
+  font-weight:bold;
+}
+
+div.main-content {
+  display:flex;
+}
+
+.profile-detail {
+  text-align:left;
+}
+
+.diary {
+  text-align:left;
+}
+
+.diary ul {
+  list-style-type:none;
+  padding:0;
+}
+
+div.comment, div.meals, div.nap, div.bathroom, div.next-time {
+  border: 1px solid black;
+  margin-top: 5px;
+  padding:3px;
+}
+
+div.meals {
+  margin-top:5px;
+}
+
+.note:nth-child(even) {
+  background-color: #bbb;
+}
+.note {
+  padding: 5px;
+}
