@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "alias": "beckibloom-ducklings-care-diary",
+  "name": "Ducklings Care Diary",
+  "routes": [
+      { "handle": "filesystem" },
+      { "src": "/.*", "dest": "/index.html" }
+  ]
+}
