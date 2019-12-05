@@ -37,7 +37,7 @@ class App extends React.Component {
 
   addStudentToContext = (student) => {
     let students = this.state.students;
-    let newStudents = students.push(students);
+    let newStudents = students.push(student);
     this.setState({
       students: newStudents
     });
