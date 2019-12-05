@@ -13,11 +13,15 @@ import AuthError from '../../routes/AuthError/AuthError';
 import ClassList from '../../routes/ClassList/ClassList';
 import AddStudent from '../../routes/AddStudent/AddStudent';
 import StudentDiary from '../../routes/StudentDiary/StudentDiary';
-import AddNote from '../../routes/AddNote/AddNote';
 import Register from '../../components/Register/Register';
 
 import PrivateRoute from '../Utils/PrivateRoute';
 import PublicOnlyRoute from '../Utils/PublicOnlyRoute';
+import BathroomNote from '../AddNote/Bathroom/BathroomNote';
+import MealNote from '../AddNote/Meal/MealNote';
+import NapNote from '../AddNote/Nap/NapNote';
+import NextTimeNote from '../AddNote/NextTime/NextTimeNote';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -145,8 +149,28 @@ class App extends React.Component {
             />
             <PrivateRoute
               exact
-              path='/student/:studentId/addnote'
-              component={AddNote}
+              path='/student/:studentId/addnote/b'
+              component={BathroomNote}
+            />
+            <PrivateRoute
+              exact
+              path='/student/:studentId/addnote/c'
+              component={Comment}
+            />
+            <PrivateRoute
+              exact
+              path='/student/:studentId/addnote/m'
+              component={MealNote}
+            />
+            <PrivateRoute
+              exact
+              path='/student/:studentId/addnote/n'
+              component={NapNote}
+            />
+            <PrivateRoute
+              exact
+              path='/student/:studentId/addnote/t'
+              component={NextTimeNote}
             />
           </Switch>
         <Footer />
