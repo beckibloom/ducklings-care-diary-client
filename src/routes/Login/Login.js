@@ -37,7 +37,7 @@ class Login extends React.Component {
       });
     }
 
-    let foundUser = this.context.users.find(user => user.username = this.state.username)
+    let foundUser = this.context.users.find(user => user.username = (this.state.username).toLowerCase())
     if (!foundUser) {
       this.setState({
         error: 'Incorrect username or password'
@@ -79,6 +79,12 @@ class Login extends React.Component {
     this.setState({
       [key]: value
     })
+  }
+
+  componentDidMount() {
+    if (this.context.users === []) {
+      this.context.setStore();
+    }
   }
 
   render() {

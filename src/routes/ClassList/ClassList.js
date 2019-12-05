@@ -1,8 +1,41 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './ClassList.css';
+import Student from '../../components/Student/Student';
+import DiaryContext from '../../DiaryContext';
 
 class ClassList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      students: [],
+    }
+  }
+  static contextType = DiaryContext;
+
+  renderStudents = () => {
+    let students = this.state.students;
+    students.map(student => 
+       <Student name={student.name} key={student.id} studentId={student.id} />
+    )
+  }
+
+  componentDidMount() {
+    this.setState({
+      students: this.context.students
+    })
+
+    // if (this.context.users === []) {
+    //   let setStore = new Promise((resolve, reject) => this.context.setStore())
+
+    //   setStore.then(res => {
+    //       this.setState({
+    //         students: this.context.students
+    //       })
+    //     })
+    // }
+  }
+
   render() {
     return (
       <>
@@ -11,303 +44,15 @@ class ClassList extends React.Component {
         </header>
         <section>
           <ul className="class-list">
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Lily Altgeld</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Molly Blackhawk</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Charlotte Cornelia</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Lance Dayton</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Alisa Eastman</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Bobby Fremont</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Nathaniel Glenwood</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Katherine Halsted</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Audrey Irving</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Charlie Jarvis</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <div className="student">
-                <ul>
-                  <li className="name">Johnny Lakewood</li>
-                  <li>
-                    <button className="edit">Edit Profile</button>
-                  </li>
-                </ul>
-                <ul>
-                  <li className="student-option">
-                    <button>Comment</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Meal</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Nap</button>
-                  </li>
-                  <li className="student-option">
-                    <button>Bathroom</button>
-                  </li>
-                  <li className="student-option">
-                    <button>For next time</button>
-                  </li>
-                </ul>
-              </div>
-            </li>
+            {/* {this.renderStudents()} */}
+            {this.state.students.map(student =>
+              <Student 
+                key={student.id}
+                firstname={student.student_first}
+                lastname={student.student_last}
+                studentId={student.id}
+              />
+            )}
             <li>
               <Link to="/addstudent">Add new student</Link>
             </li>
