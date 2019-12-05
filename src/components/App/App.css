@@ -44,3 +44,7 @@ p + p {
 input {
   font-size: 20px;
 }
+
+.error {
+  color: red;
+}
