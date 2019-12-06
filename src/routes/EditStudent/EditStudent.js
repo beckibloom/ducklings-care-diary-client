@@ -1,42 +1,36 @@
 import React from 'react';
-import './AddStudent.css';
+import '../AddStudent/AddStudent.css';
 import DiaryContext from '../../DiaryContext';
 
-class AddStudent extends React.Component {
+class EditStudent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      student_first: '',
-      student_last: '',
-      birth_date: '',
-      parent_email: '',
+      studentId: parseInt(this.props.match.params.studentId),
     }
   }
 
   static contextType = DiaryContext;
 
-  createId = () => {
-    return Math.random().toString(36).substr(2, 9);
-  };
-
   handleSubmit = (e) => {
     e.preventDefault();
     let readyToSubmit = this.validateFields();
-    const student = {
-      student_first: this.state.student_first,
-      student_last: this.state.student_last,
-      birth_date: this.state.birth_date,
-      parent_email: this.state.parent_email,
-      id: this.createId,
-    };
     if (readyToSubmit === true) {
-      this.context.addStudentToContext(student);
+      const studentToUpdate = {
+        student_first: document.getElementById('student_first').value,
+        student_last: document.getElementById('student_last').value,
+        birth_date: document.getElementById('birth_date').value,
+        parent_email: document.getElementById('parent_email').value,
+        id: this.state.studentId,
+        teacher_id: this.context.teacherId,
+      };
+      this.context.updateStudentInContext(studentToUpdate);
       this.props.history.push(`/class/${this.context.teacherId}`);
     };
   };
 
   validateFields = () => {
-    if (this.state.student_first.length === 0 || this.state.student_last.length === 0 || this.state.birth_date.length === 0 || this.state.parent_email.length === 0) {
+    if (document.getElementById('student_first').value === 0 || document.getElementById('student_last').value === 0 || document.getElementById('birth_date').value === 0 || document.getElementById('parent_email').value === 0) {
       this.setState({
         error: 'First name, last name, or birth date may not be left blank.'
       })
@@ -47,7 +41,7 @@ class AddStudent extends React.Component {
       })
     }
 
-    if (this.state.birth_date.charAt(2) !== '/' || this.state.birth_date.charAt(5) !== '/' || this.state.birth_date.length !== 10) {
+    if (document.getElementById('birth_date').value.charAt(2) !== '/' || document.getElementById('birth_date').value.charAt(5) !== '/' || document.getElementById('birth_date').value.length !== 10) {
       this.setState({
         dateError: 'Expected birth date format is mm/dd/yyyy'
       });
@@ -58,7 +52,7 @@ class AddStudent extends React.Component {
       })
     }
 
-    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.parent_email)) {
+    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById('parent_email').value)) {
       this.setState({
         emailError: ''
       })
@@ -83,11 +77,27 @@ class AddStudent extends React.Component {
     this.props.history.goBack();
   }
 
+  getStudentObj = () => {
+    return this.context.students.find(student => student.id === parseInt(this.props.match.params.studentId))
+  }
+
+  setValues = (student) => {
+    document.getElementById('student_first').value = student.student_first;
+    document.getElementById('student_last').value = student.student_last;
+    document.getElementById('birth_date').value = student.birthdate;
+    document.getElementById('parent_email').value = student.parent_email;
+  }
+
+  componentDidMount() {
+    const student = this.getStudentObj();
+    this.setValues(student);
+  }
+
   render() {
     return (
       <>
       <header>
-        <h1>New Student</h1>
+        <h1>Edit Student</h1>
       </header>
       <section>
         <form id="add-student" onSubmit={this.handleSubmit}>
@@ -124,7 +134,7 @@ class AddStudent extends React.Component {
           </div>
 
 
-          <button type="submit">Add Student</button>
+          <button type="submit">Update Student</button>
           <button onClick={this.goBack}>Go back</button>
           <p>{this.state.error}</p>
           <p>{this.state.dateError}</p>
@@ -136,4 +146,4 @@ class AddStudent extends React.Component {
   }
 }
 
-export default AddStudent;
+export default EditStudent;

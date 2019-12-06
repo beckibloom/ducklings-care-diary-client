@@ -5,11 +5,14 @@ const DiaryContext = React.createContext({
   users: [],
   students: [],
   notes: [],
+  teacherId: '',
   setAdminStatus: () => {},
   addStudentToContext: () => {},
   addUserToContext: () => {},
   addNewNote: () => {},
   setStore: () => {},
+  updateTeacherId: () => {},
+  updateStudentInContext: () => {},
 });
 
 export default DiaryContext;

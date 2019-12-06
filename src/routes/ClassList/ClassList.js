@@ -11,29 +11,18 @@ class ClassList extends React.Component {
       students: [],
     }
   }
+
   static contextType = DiaryContext;
 
-  renderStudents = () => {
-    let students = this.state.students;
-    students.map(student => 
-       <Student name={student.name} key={student.id} studentId={student.id} />
-    )
-  }
+  setStudents = (students) => {
+    this.setState({
+      students: students,
+    })
+  };
 
   componentDidMount() {
-    this.setState({
-      students: this.context.students
-    })
-
-    // if (this.context.users === []) {
-    //   let setStore = new Promise((resolve, reject) => this.context.setStore())
-
-    //   setStore.then(res => {
-    //       this.setState({
-    //         students: this.context.students
-    //       })
-    //     })
-    // }
+    const studentsOfTeacher = this.context.students.filter(student => student.teacher_id === parseInt(this.props.match.params.teacherId))
+    this.setStudents(studentsOfTeacher);
   }
 
   render() {
@@ -44,7 +33,6 @@ class ClassList extends React.Component {
         </header>
         <section>
           <ul className="class-list">
-            {/* {this.renderStudents()} */}
             {this.state.students.map(student =>
               <Student 
                 key={student.id}

@@ -17,10 +17,8 @@ import Register from '../../components/Register/Register';
 
 import PrivateRoute from '../Utils/PrivateRoute';
 import PublicOnlyRoute from '../Utils/PublicOnlyRoute';
-import BathroomNote from '../AddNote/Bathroom/BathroomNote';
-import MealNote from '../AddNote/Meal/MealNote';
-import NapNote from '../AddNote/Nap/NapNote';
-import NextTimeNote from '../AddNote/NextTime/NextTimeNote';
+import AddNote from '../../routes/AddNote/AddNote';
+import EditStudent from '../../routes/EditStudent/EditStudent';
 
 
 class App extends React.Component {
@@ -28,7 +26,14 @@ class App extends React.Component {
     super(props);
     this.state = {
       admin: false,
+      teacherId: null,
     };
+  };
+
+  updateTeacherId = (id) => {
+    this.setState({
+      teacherId: id,
+    })
   };
 
   addUserToContext = (user) => {
@@ -41,9 +46,19 @@ class App extends React.Component {
 
   addStudentToContext = (student) => {
     let students = this.state.students;
-    let newStudents = students.push(student);
+    students.push(student);
     this.setState({
-      students: newStudents
+      students: students
+    });
+  };
+
+  updateStudentInContext = (student) => {
+    let students = this.state.students;
+    const index = students.findIndex(st => st.id === student.id);
+    students.splice(index, 1);
+    students.push(student);
+    this.setState({
+      students: students
     });
   };
 
@@ -100,11 +115,14 @@ class App extends React.Component {
       users: this.state.users,
       students: this.state.students,
       notes: this.state.notes,
+      teacherId: this.state.teacherId,
       setAdminStatus: this.setAdminStatus,
       addStudentToContext: this.addStudentToContext,
       addUserToContext: this.addUserToContext,
       addNewNote: this.addNewNote,
       setStore: this.setStore,
+      updateTeacherId: this.updateTeacherId,
+      updateStudentInContext: this.updateStudentInContext,
     }
 
     return (
@@ -134,7 +152,7 @@ class App extends React.Component {
             />
             <PrivateRoute 
               exact
-              path='/class/:classId'
+              path='/class/:teacherId'
               component={ClassList}
             />
             <PrivateRoute
@@ -149,28 +167,13 @@ class App extends React.Component {
             />
             <PrivateRoute
               exact
-              path='/student/:studentId/addnote/b'
-              component={BathroomNote}
+              path='/student/:studentId/addnote'
+              component={AddNote}
             />
             <PrivateRoute
               exact
-              path='/student/:studentId/addnote/c'
-              component={Comment}
-            />
-            <PrivateRoute
-              exact
-              path='/student/:studentId/addnote/m'
-              component={MealNote}
-            />
-            <PrivateRoute
-              exact
-              path='/student/:studentId/addnote/n'
-              component={NapNote}
-            />
-            <PrivateRoute
-              exact
-              path='/student/:studentId/addnote/t'
-              component={NextTimeNote}
+              path='/student/:studentId/edit'
+              component={EditStudent}
             />
           </Switch>
         <Footer />

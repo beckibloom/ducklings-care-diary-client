@@ -67,8 +67,9 @@ class Login extends React.Component {
     const isUserValid = this.validateUserData();
     if (isUserValid === true) {
       this.context.setAdminStatus(true);
-      const currentUser = this.context.users.find(user => user.username === this.state.username);
+      const currentUser = this.context.users.find(user => user.username.toLowerCase() === this.state.username.toLowerCase());
       const teacherId = currentUser.id;
+      this.context.updateTeacherId(teacherId);
       this.props.history.push(`/class/${teacherId}`)
     }
   }

@@ -1,8 +1,9 @@
 import React from 'react';
-import '../AddNote.css';
+import './AddNote.css';
 
-class NextTimeNote extends React.Component {
-  goBack = () => {
+class AddNote extends React.Component {
+  goBack = (e) => {
+    e.preventDefault();
     this.props.history.goBack();
   }
   
@@ -14,9 +15,9 @@ class NextTimeNote extends React.Component {
       </header>
       <section>
         <form id="add-note">
-          <div className="form-section next-time">
-            <label htmlFor="next-time">Notes for next time</label>
-            <textarea name="next-time" rows="5"></textarea>
+          <div className="form-section comment">
+            <label htmlFor="comment">Today's notes</label>
+            <textarea name="comment" rows="5"></textarea>
           </div>
           <button type="submit">Submit note</button>
           <button onClick={this.goBack}>Cancel</button>
@@ -27,4 +28,4 @@ class NextTimeNote extends React.Component {
   }
 }
 
-export default NextTimeNote;
+export default AddNote;

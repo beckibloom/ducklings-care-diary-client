@@ -1,6 +1,19 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 
 class Student extends React.Component {
+  addNote = (e) => {
+    e.preventDefault();
+    const studentId = this.props.studentId;
+    this.props.history.push(`/student/${studentId}/addnote`)
+  };
+
+  editProfile = (e) => {
+    e.preventDefault();
+    const studentId = this.props.studentId;
+    this.props.history.push(`/student/${studentId}/edit`)
+  };
+
   render() {
     return (
       <li>
@@ -8,24 +21,8 @@ class Student extends React.Component {
           <ul>
             <li className="name">{this.props.firstname} {this.props.lastname}</li>
             <li>
-              <button className="edit">Edit Profile</button>
-            </li>
-          </ul>
-          <ul>
-            <li className="student-option">
-              <button>Comment</button>
-            </li>
-            <li className="student-option">
-              <button>Meal</button>
-            </li>
-            <li className="student-option">
-              <button>Nap</button>
-            </li>
-            <li className="student-option">
-              <button>Bathroom</button>
-            </li>
-            <li className="student-option">
-              <button>For next time</button>
+              <button onClick={this.editProfile}>Edit Profile</button>
+              <button onClick={this.addNote}>Leave a Note</button>
             </li>
           </ul>
         </div>
@@ -34,4 +31,4 @@ class Student extends React.Component {
   }
 }
 
-export default Student;
+export default withRouter(Student);
