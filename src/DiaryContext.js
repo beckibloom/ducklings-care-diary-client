@@ -1,11 +1,13 @@
 import React from 'react';
 
 const DiaryContext = React.createContext({
-  admin: false,
+  admin: null,
   users: [],
   students: [],
   notes: [],
   teacherId: '',
+  studentNotes: [],
+  parentEmail: '',
   setAdminStatus: () => {},
   addStudentToContext: () => {},
   addUserToContext: () => {},
@@ -13,6 +15,8 @@ const DiaryContext = React.createContext({
   setStore: () => {},
   updateTeacherId: () => {},
   updateStudentInContext: () => {},
+  filterNotesByStudent: () => {},
+  updateParentEmail: () => {},
 });
 
 export default DiaryContext;

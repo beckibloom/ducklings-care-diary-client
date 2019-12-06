@@ -37,7 +37,7 @@ class AddNote extends React.Component {
     if (readyToSubmit === true) {
       const newNote = {
         id: this.createId(),
-        student_id: this.props.match.params.studentId,
+        student_id: parseInt(this.props.match.params.studentId),
         date: new Date().toDateString(),
         comment: this.state.note,
       }

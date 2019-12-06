@@ -3,7 +3,7 @@ const STORE = {
     {
       "id": 1,
       "username": "TeacherUser",
-      "password": "TeacherPass",
+      "password": "password",
       "type": "teacher",
     },
     {

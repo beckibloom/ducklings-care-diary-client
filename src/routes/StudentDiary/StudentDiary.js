@@ -8,32 +8,38 @@ class StudentDiary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentNotes: [],
+      student: {},
     }
   }
   static contextType = DiaryContext;
 
   renderReturnButton = () => {
-    const classId = 1;
-    const path = `/class/${classId}`;
-    return (
-    <Link to={path}>
-      <button>Return to class list</button>
-    </Link>
-    )
-  }
-
-  renderDiaryNotes = () => {
-    this.state.studentNotes.map(note => <DiaryNote note={note} />)
+    if(this.context.admin === 'teacher') {
+      const teacherId = this.context.teacherId;
+      const path = `/class/${teacherId}`;
+      return (
+        <>
+          <button onClick={this.editProfile}>Edit student profile</button>
+          <Link to={path}>
+            <button>Return to class list</button>
+          </Link>
+        </>
+      )
+    }
   }
 
   componentDidMount() {
-    const notes = this.context.notes;
-    const notesForStudent = notes.filter(note => note.id === parseInt(this.props.match.params.studentId));
+    const student = this.context.students.find(student => student.id === parseInt(this.props.match.params.studentId))
     this.setState({
-      studentNotes: notesForStudent
+      student: student,
     })
   }
+
+  editProfile = (e) => {
+    e.preventDefault();
+    const studentId = this.state.student.id;
+    this.props.history.push(`/student/${studentId}/edit`)
+  };
 
   render() {
     return (
@@ -43,18 +49,18 @@ class StudentDiary extends React.Component {
       </header>
       <div className="main-content">
         <section className="profile-detail">
-          <h3>Lily Altgeld</h3>
-          <p><span className="bold">Birth date:</span> 12/03/2017</p>
-          <p><span className="bold">Notes:</span> Allergy to peanuts.</p>
-          <p><span className="bold">Parent users:</span></p>
-          <p>Ruth Dakin-Altgeld, ruth@altgeld.com, Mother</p>
-          <p>Matilda Altgeld, matilda@altgeld.com, Mother</p>
-          <button>Edit student profile</button>
+          <h3>{this.state.student.student_first} {this.state.student.student_last}</h3>
+          <p><span className="bold">Birth date:</span> {this.state.student.birthdate}</p>
+          <p><span className="bold">Parent user:</span>
+          {this.state.student.parent_email}</p>
           {this.renderReturnButton()}
         </section>
         <section className="diary">
           <ul>
-            {this.renderDiaryNotes()}
+            {this.context.studentNotes.map(note => 
+              <DiaryNote 
+                key={note.id}
+                note={note} />)}
           </ul>
         </section>
       </div>

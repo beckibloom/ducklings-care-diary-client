@@ -37,11 +37,12 @@ class Login extends React.Component {
       });
     }
 
-    let foundUser = this.context.users.find(user => user.username = (this.state.username).toLowerCase())
+    let foundUser = this.context.users.find(user => (user.username).toLowerCase() === (this.state.username).toLowerCase())
     if (!foundUser) {
       this.setState({
         error: 'Incorrect username or password'
       });
+      console.log({foundUser})
       return false;
     }
 
@@ -57,7 +58,17 @@ class Login extends React.Component {
         error: null,
         username_error: null,
         password_error: null,
+        user_type: foundUser.type,
       });
+      this.context.setAdminStatus(foundUser.type);
+      if (foundUser.type === 'parent') {
+        const parentEmail = foundUser.username;
+        this.context.updateParentEmail(parentEmail);
+        const student = this.context.students.find(student => student.parent_email === parentEmail)
+        this.props.history.push(`/student/${student.id}`)
+        this.context.filterNotesByStudent(student.id);
+        return false;
+      }
       return true;
     }
   }
@@ -66,7 +77,6 @@ class Login extends React.Component {
     e.preventDefault();
     const isUserValid = this.validateUserData();
     if (isUserValid === true) {
-      this.context.setAdminStatus(true);
       const currentUser = this.context.users.find(user => user.username.toLowerCase() === this.state.username.toLowerCase());
       const teacherId = currentUser.id;
       this.context.updateTeacherId(teacherId);
@@ -105,7 +115,7 @@ class Login extends React.Component {
                 <label htmlFor="password">Password</label>
                 <input type="password" name='password' id='password' onChange={this.updateState} />
               </div>
-              <button type='submit'>Sign Up</button>
+              <button type='submit'>Sign In</button>
               <p className="error">{this.state.error}</p>
               <p className="error">{this.state.username_error}</p>
               <p className="error">{this.state.password_error}</p>

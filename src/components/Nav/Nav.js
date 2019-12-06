@@ -20,15 +20,13 @@ class Nav extends React.Component {
           Log in to my diary
         </button>
       </Link>)
-    } else if (this.context.admin === true) {
-      let currentUser = this.context.users.find(user => user.id === this.context.teacherId)
-      if (currentUser.type === 'parent') {
-        return (
-          <button onClick={this.logOut}>
-            Log out of my diary
-          </button>
-        )
-      } else if (currentUser.type === 'teacher') {
+    } else if (this.context.admin === 'parent') {
+      return (
+        <button onClick={this.logOut}>
+          Log out of my diary
+        </button>
+      )
+      } else if (this.context.admin === 'teacher') {
         return (
           <div>
             <button onClick={this.logOut}>
@@ -40,7 +38,6 @@ class Nav extends React.Component {
           </div>
         )
       }
-    }
   }
 
   render() {

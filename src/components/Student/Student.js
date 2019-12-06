@@ -1,7 +1,18 @@
 import React from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import DiaryContext from '../../DiaryContext';
 
 class Student extends React.Component {
+  static contextType = DiaryContext;
+
+  filterNotes = (e) => {
+    e.preventDefault();
+    //get student notes
+    const studentId = this.props.studentId;
+    this.context.filterNotesByStudent(studentId);
+    this.props.history.push(`/student/${studentId}`);
+  }
+
   addNote = (e) => {
     e.preventDefault();
     const studentId = this.props.studentId;
@@ -25,9 +36,7 @@ class Student extends React.Component {
             <li>
               <button onClick={this.editProfile}>Edit Profile</button>
               <button onClick={this.addNote}>Leave a Note</button>
-              <Link to={`/student/${this.props.studentId}`}>
-                <button>View Student Diary</button>
-              </Link>
+              <button onClick={this.filterNotes}>View Student Diary</button>
             </li>
           </ul>
         </div>

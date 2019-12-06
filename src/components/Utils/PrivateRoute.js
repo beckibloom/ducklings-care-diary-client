@@ -10,7 +10,7 @@ export default function PrivateRoute({ component, ...props }) {
     <Route
       {...props}
       render={componentProps => (
-        (contextObj.admin)
+        ((contextObj.admin === 'parent') || (contextObj.admin === 'teacher'))
           ? <Component {...componentProps} />
           : <Redirect
               to={{

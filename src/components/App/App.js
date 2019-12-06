@@ -36,11 +36,17 @@ class App extends React.Component {
     })
   };
 
+  updateParentEmail = (email) => {
+    this.setState({
+      parentEmail: email,
+    });
+  };
+
   addUserToContext = (user) => {
     let users = this.state.users;
-    let newUsers = users.push(user);
+    users.push(user);
     this.setState({
-      users: newUsers
+      users: users
     });
   };
 
@@ -88,6 +94,14 @@ class App extends React.Component {
     });
   };
 
+  filterNotesByStudent = (studentId) => {
+    const notes = this.state.notes;
+    const notesForStudent = notes.filter(note => note.student_id === parseInt(studentId));
+    this.setState({
+      studentNotes: notesForStudent,
+    })
+  };
+
   componentDidMount = () => {
     this.setStore();
   }
@@ -99,6 +113,8 @@ class App extends React.Component {
       students: this.state.students,
       notes: this.state.notes,
       teacherId: this.state.teacherId,
+      studentNotes: this.state.studentNotes,
+      parentEmail: this.state.parentEmail,
       setAdminStatus: this.setAdminStatus,
       addStudentToContext: this.addStudentToContext,
       addUserToContext: this.addUserToContext,
@@ -106,6 +122,8 @@ class App extends React.Component {
       setStore: this.setStore,
       updateTeacherId: this.updateTeacherId,
       updateStudentInContext: this.updateStudentInContext,
+      filterNotesByStudent: this.filterNotesByStudent,
+      updateParentEmail: this.updateParentEmail,
     }
 
     return (

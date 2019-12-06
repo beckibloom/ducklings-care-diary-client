@@ -7,8 +7,6 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      first: null,
-      last: null,
       username: null,
       password: null,
       type: null,
@@ -21,7 +19,7 @@ class Register extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    if (this.state.first === null || this.state.last === null || this.state.email === null || this.state.password === null || this.state.type === null) {
+    if (this.state.email === null || this.state.password === null || this.state.type === null) {
       this.setState({
         error: `Whoops, something's missing! Make sure you fill in all the fields above.`
       });
@@ -29,8 +27,6 @@ class Register extends React.Component {
     }
 
     const newUser = {
-      first: this.state.first,
-      last: this.state.last,
       username: this.state.username,
       password: this.state.password,
       type: this.state.type,
@@ -64,12 +60,6 @@ class Register extends React.Component {
             <h3>Start your journey today</h3>
         </header>
         <form className='signup-form' onSubmit={this.handleSubmit} >
-            <div>
-              <input placeholder='First Name' type="text" name='first-name' id='first' onChange={this.updateState} />
-            </div>
-            <div>
-              <input type="text" name='last-name' id='last' placeholder='Last Name' onChange={this.updateState} />
-            </div>
             <div>
               <input type="text" name='username' id='username' placeholder="E-mail" onChange={this.updateState} />
             </div>
