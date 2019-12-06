@@ -64,26 +64,9 @@ class App extends React.Component {
 
   addNewNote = (newNote) => {
     let notes = this.state.notes;
-    let noteToUpdate = notes.find(note => note.date === newNote.date)
-    if (!noteToUpdate) {
-      let newNotes = notes.push(newNote);
-      this.setState({
-        notes: newNotes
-      });
-      return;
-    };
-
-    let itemsToUpdate = Object.keys(newNote);
-    for (let i=0; i < itemsToUpdate.length; i++) {
-      noteToUpdate.itemsToUpdate[i] = newNote.itemsToUpdate[i]
-    };
-
-    //notes are stored in array with the most recent note at the end of the array
-    //.pop() the last item in the array and .push the new object
-    notes.pop();
-    let newNotes = notes.push(noteToUpdate);
+    notes.push(newNote);
     this.setState({
-      notes: newNotes
+      notes: notes
     });
   };
 

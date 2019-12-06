@@ -21,13 +21,26 @@ class Nav extends React.Component {
         </button>
       </Link>)
     } else if (this.context.admin === true) {
-      return (
-        <button onClick={this.logOut}>
-          Log out of my diary
-        </button>
-      )
+      let currentUser = this.context.users.find(user => user.id === this.context.teacherId)
+      if (currentUser.type === 'parent') {
+        return (
+          <button onClick={this.logOut}>
+            Log out of my diary
+          </button>
+        )
+      } else if (currentUser.type === 'teacher') {
+        return (
+          <div>
+            <button onClick={this.logOut}>
+              Log out of my diary
+            </button>
+            <Link to={`/class/${this.context.teacherId}`}>
+              <button>Go to class list</button>
+            </Link>
+          </div>
+        )
+      }
     }
-    return (<button>Hello</button>)
   }
 
   render() {

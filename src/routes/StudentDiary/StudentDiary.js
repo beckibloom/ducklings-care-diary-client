@@ -1,8 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './StudentDiary.css';
+import DiaryNote from '../../components/DiaryNote/DiaryNote';
+import DiaryContext from '../../DiaryContext';
 
 class StudentDiary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      studentNotes: [],
+    }
+  }
+  static contextType = DiaryContext;
+
   renderReturnButton = () => {
     const classId = 1;
     const path = `/class/${classId}`;
@@ -11,6 +21,18 @@ class StudentDiary extends React.Component {
       <button>Return to class list</button>
     </Link>
     )
+  }
+
+  renderDiaryNotes = () => {
+    this.state.studentNotes.map(note => <DiaryNote note={note} />)
+  }
+
+  componentDidMount() {
+    const notes = this.context.notes;
+    const notesForStudent = notes.filter(note => note.id === parseInt(this.props.match.params.studentId));
+    this.setState({
+      studentNotes: notesForStudent
+    })
   }
 
   render() {
@@ -32,138 +54,7 @@ class StudentDiary extends React.Component {
         </section>
         <section className="diary">
           <ul>
-            <li className="note">
-              <h3>Tuesday, December 3, 2019</h3>
-              <div className="comment">
-                <span className="bold">Today's notes:</span> Lily had fun building with blocks today!
-              </div>
-              <div className="meals">
-                <ul className="meals">
-                  <li><span className="bold">Meals</span></li>
-                  <li>(All, Most, Some, Try, or None)</li>
-                  <li><span className="bold">AM Snack:</span> Try</li>
-                  <li><span className="bold">Lunch:</span> Most</li>
-                  <li><span className="bold">PM Snack:</span> Some</li>
-                  <li><span className="bold">AC Snack:</span> All</li>
-                </ul>
-              </div>
-              <div className="nap">
-                <span className="bold">Nap time:</span> 1.5 hours
-              </div>
-              <div className="bathroom">
-                <ul className="bathroom">
-                  <li><span className="bold">Bathroom</span></li>
-                  <li>00:00, Wet</li>
-                  <li>00:00, Wet</li>
-                  <li>00:00, Dry, Ointment Applied</li>
-                  <li>00:00, Soiled</li>
-                  <li>00:00, Diarrhea</li>
-                  <li>00:00, Diarrhea</li>
-                </ul>
-              </div>
-              <div className="next-time">
-                <span className="bold">Notes for next time:</span> Bring more diapers
-              </div>
-            </li>
-            <li className="note">
-              <h3>Monday, December 2, 2019</h3>
-              <div className="comment">
-                <span className="bold">Today's notes:</span> Lily had a hard time in dance today.
-              </div>
-              <div className="meals">
-                <ul className="meals">
-                  <li><span className="bold">Meals</span></li>
-                  <li>(All, Most, Some, Try, or None)</li>
-                  <li><span className="bold">AM Snack:</span> Try</li>
-                  <li><span className="bold">Lunch:</span> Most</li>
-                  <li><span className="bold">PM Snack:</span> Some</li>
-                  <li><span className="bold">AC Snack:</span> All</li>
-                </ul>
-              </div>
-              <div className="nap">
-                <span className="bold">Nap time:</span> 1 hour
-              </div>
-              <div className="bathroom">
-                <ul className="bathroom">
-                  <li><span className="bold">Bathroom</span></li>
-                  <li>00:00, Wet</li>
-                  <li>00:00, Wet</li>
-                  <li>00:00, Dry, Ointment Applied</li>
-                  <li>00:00, Soiled</li>
-                  <li>00:00, Diarrhea</li>
-                  <li>00:00, Diarrhea</li>
-                </ul>
-              </div>
-              <div className="next-time">
-                <span className="bold">Notes for next time:</span> None
-              </div>
-            </li>
-            <li className="note">
-              <h3>Tuesday, November 26, 2019</h3>
-              <div className="comment">
-                <span className="bold">Today's notes:</span> Lily made a new friend today
-              </div>
-              <div className="meals">
-                <ul className="meals">
-                  <li><span className="bold">Meals</span></li>
-                  <li>(All, Most, Some, Try, or None)</li>
-                  <li><span className="bold">AM Snack:</span> Try</li>
-                  <li><span className="bold">Lunch:</span> Most</li>
-                  <li><span className="bold">PM Snack:</span> Some</li>
-                  <li><span className="bold">AC Snack:</span> All</li>
-                </ul>
-              </div>
-              <div className="nap">
-                <span className="bold">Nap time:</span> 2 hours
-              </div>
-              <div className="bathroom">
-                <ul className="bathroom">
-                  <li><span className="bold">Bathroom</span></li>
-                  <li>00:00, Wet</li>
-                  <li>00:00, Wet</li>
-                  <li>00:00, Dry, Ointment Applied</li>
-                  <li>00:00, Soiled</li>
-                  <li>00:00, Diarrhea</li>
-                  <li>00:00, Diarrhea</li>
-                </ul>
-              </div>
-              <div className="next-time">
-                <span className="bold">Notes for next time:</span> Happy Thanksgiving!
-              </div>
-            </li>
-            <li className="note">
-              <h3>Monday, November 25, 2019</h3>
-              <div className="comment">
-                <span className="bold">Today's notes:</span> After drop off Lily was upset so she spent some time cuddling her teddy bear to help her feel better.
-              </div>
-              <div className="meals">
-                <ul className="meals">
-                  <li><span className="bold">Meals</span></li>
-                  <li>(All, Most, Some, Try, or None)</li>
-                  <li><span className="bold">AM Snack:</span> Try</li>
-                  <li><span className="bold">Lunch:</span> Most</li>
-                  <li><span className="bold">PM Snack:</span> Some</li>
-                  <li><span className="bold">AC Snack:</span> All</li>
-                </ul>
-              </div>
-              <div className="nap">
-                <span className="bold">Nap time:</span> .5 hours
-              </div>
-              <div className="bathroom">
-                <ul className="bathroom">
-                  <li><span className="bold">Bathroom</span></li>
-                  <li>00:00, Wet</li>
-                  <li>00:00, Wet</li>
-                  <li>00:00, Dry, Ointment Applied</li>
-                  <li>00:00, Soiled</li>
-                  <li>00:00, Diarrhea</li>
-                  <li>00:00, Diarrhea</li>
-                </ul>
-              </div>
-              <div className="next-time">
-                <span className="bold">Notes for next time:</span> Please bring a warm hat for playing outside
-              </div>
-            </li>
+            {this.renderDiaryNotes()}
           </ul>
         </section>
       </div>

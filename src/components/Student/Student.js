@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
 class Student extends React.Component {
   addNote = (e) => {
@@ -19,10 +19,15 @@ class Student extends React.Component {
       <li>
         <div className="student">
           <ul>
-            <li className="name">{this.props.firstname} {this.props.lastname}</li>
+            <li className="name">
+              {this.props.firstname} {this.props.lastname}
+            </li>
             <li>
               <button onClick={this.editProfile}>Edit Profile</button>
               <button onClick={this.addNote}>Leave a Note</button>
+              <Link to={`/student/${this.props.studentId}`}>
+                <button>View Student Diary</button>
+              </Link>
             </li>
           </ul>
         </div>
