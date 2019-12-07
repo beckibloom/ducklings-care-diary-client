@@ -6,8 +6,8 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
-      password: null,
+      username: '',
+      password: '',
       error: null,
       username_error: null,
       password_error: null,
@@ -40,7 +40,7 @@ class Login extends React.Component {
     let foundUser = this.context.users.find(user => (user.username).toLowerCase() === (this.state.username).toLowerCase())
     if (!foundUser) {
       this.setState({
-        error: 'Incorrect username or password'
+        error: 'Incorrect username or password usernotfound'
       });
       console.log({foundUser})
       return false;
@@ -48,8 +48,9 @@ class Login extends React.Component {
 
     if (foundUser.password !== this.state.password) {
       this.setState({
-        error: 'Incorrect username or password'
+        error: 'Incorrect username or password passwordnotmatching'
       });
+      console.log({foundUser}, this.state.password)
       return false;
     }
 
@@ -61,6 +62,7 @@ class Login extends React.Component {
         user_type: foundUser.type,
       });
       this.context.setAdminStatus(foundUser.type);
+
       if (foundUser.type === 'parent') {
         const parentEmail = foundUser.username;
         this.context.updateParentEmail(parentEmail);
@@ -109,11 +111,11 @@ class Login extends React.Component {
           <form className='signup-form' onSubmit={this.handleSubmit} >
               <div>
                 <label htmlFor="username">Username</label>
-                <input type="text" name='username' id='username' onChange={this.updateState} />
+                <input type="text" name='username' id='username' value={this.state.username} onChange={this.updateState} />
               </div>
               <div>
                 <label htmlFor="password">Password</label>
-                <input type="password" name='password' id='password' onChange={this.updateState} />
+                <input type="password" name='password' id='password' value={this.state.password} onChange={this.updateState} />
               </div>
               <button type='submit'>Sign In</button>
               <p className="error">{this.state.error}</p>

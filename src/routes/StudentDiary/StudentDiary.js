@@ -8,7 +8,12 @@ class StudentDiary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      student: {},
+      student: {
+        student_first: '',
+        student_last: '',
+        birthdate: '',
+        parent_email: '',
+      },
     }
   }
   static contextType = DiaryContext;
@@ -29,7 +34,9 @@ class StudentDiary extends React.Component {
   }
 
   componentDidMount() {
-    const student = this.context.students.find(student => student.id.toString() === this.props.match.params.studentId)
+    // eslint-disable-next-line
+    const student = this.context.students.find(student => student.id == this.props.match.params.studentId)
+    if (!student) { return }
     this.setState({
       student: student,
     })

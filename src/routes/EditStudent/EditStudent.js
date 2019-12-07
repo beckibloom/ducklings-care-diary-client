@@ -6,7 +6,7 @@ class EditStudent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentId: parseInt(this.props.match.params.studentId),
+      studentId: '',
     }
   }
 
@@ -78,19 +78,33 @@ class EditStudent extends React.Component {
   }
 
   getStudentObj = () => {
-    return this.context.students.find(student => student.id === parseInt(this.props.match.params.studentId))
+    // eslint-disable-next-line
+    return this.context.students.find(student => student.id == this.props.match.params.studentId)
   }
 
   setValues = (student) => {
     document.getElementById('student_first').value = student.student_first;
     document.getElementById('student_last').value = student.student_last;
-    document.getElementById('birth_date').value = student.birthdate;
+    document.getElementById('birth_date').value = student.birth_date;
     document.getElementById('parent_email').value = student.parent_email;
+
+    this.setState({
+      student_first: student.student_first,
+      student_last: student.student_last,
+      birth_date: student.birth_date,
+      parent_email: student.parent_email,
+    })
   }
 
   componentDidMount() {
     const student = this.getStudentObj();
+    if (!student) { return }
     this.setValues(student);
+    if (this.props.match.params.studentId) {
+      this.setState({
+        studentId: this.props.match.params.studentId,
+      })
+    }
   }
 
   render() {

@@ -7,8 +7,8 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: null,
-      password: null,
+      username: '',
+      password: '',
       type: null,
       error: null,
     }
@@ -66,10 +66,10 @@ class Register extends React.Component {
         </header>
         <form className='signup-form' onSubmit={this.handleSubmit} >
             <div>
-              <input type="text" name='username' id='username' placeholder="E-mail" onChange={this.updateState} />
+              <input type="text" name='username' id='username' placeholder="E-mail" value={this.state.username} onChange={this.updateState} />
             </div>
             <div>
-              <input type="password" name='password' id='password' placeholder="Password" onChange={this.updateState} />
+              <input type="password" name='password' id='password' placeholder="Password" value={this.state.password} onChange={this.updateState} />
             </div>
             <div className="select-user-type">
               <div>

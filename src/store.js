@@ -140,6 +140,33 @@ const STORE = {
       "date": "Tuesday, December 3, 2019",
       "comment": "After drop off Lily was upset so she spent some time cuddling her teddy bear to help her feel better.",
     },
+    {
+      "id": 8,
+      "student_id": 3,
+      "date": "Monday, November 25, 2019",
+      "comment": "Lily had fun building with blocks today!",
+    },
+    
+    {
+      "id": 7,
+      "student_id": 3,
+      "date": "Tuesday, November 26, 2019",
+      "comment": "Lily had a hard time today in dance class and cried for most of the session.",
+    },
+
+    {
+      "id": 6,
+      "student_id": 3,
+      "date": "Monday, December 2, 2019",
+      "comment": "Lily made a new friend today - she and Charles had fun playing dress up together.",
+    },
+
+    {
+      "id": 5,
+      "student_id": 3,
+      "date": "Tuesday, December 3, 2019",
+      "comment": "After drop off Lily was upset so she spent some time cuddling her teddy bear to help her feel better.",
+    },
   ],
 };
 

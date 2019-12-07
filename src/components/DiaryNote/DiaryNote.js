@@ -1,6 +1,13 @@
 import React from 'react';
 
 class DiaryNote extends React.Component {
+  static defaultProps = {
+    note: {
+      comment: '',
+      date: '',
+    }
+  }
+
   render() {
     return (
       <li className="note">

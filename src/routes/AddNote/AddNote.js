@@ -70,7 +70,7 @@ class AddNote extends React.Component {
         <form id="add-note" onSubmit={this.handleSubmit}>
           <div className="form-section note">
             <label htmlFor="note">Today's notes</label>
-            <textarea name="note" rows="5" id="note" onChange={this.updateState}></textarea>
+            <textarea name="note" rows="5" id="note" value={this.state.note} onChange={this.updateState}></textarea>
           </div>
           <button type="submit">Submit note</button>
           <button onClick={this.goBack}>Cancel</button>

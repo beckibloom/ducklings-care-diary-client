@@ -13,8 +13,9 @@ class AuthError extends React.Component {
         <header>
             <h3>You are not authorized to view this page.</h3>
         </header>
-        <p>Please log in to continue.</p>
+        <p>Please log in or register to continue.</p>
         <p><Link to="/login">Log in</Link></p>
+        <p><Link to="/register">Register</Link></p>
       </section>
       </>
     )

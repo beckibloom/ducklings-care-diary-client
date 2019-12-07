@@ -48,6 +48,7 @@ class App extends React.Component {
     this.setState({
       users: users
     });
+    // this.setState({users: [...this.state.users,user]})s
   };
 
   addStudentToContext = (student) => {

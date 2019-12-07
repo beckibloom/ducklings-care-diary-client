@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom'; 
 import {BrowserRouter} from 'react-router-dom';
-import AddStudent from './AddStudent';
+import EditStudent from './EditStudent';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
     <BrowserRouter>
-      <AddStudent />
+      <EditStudent />
     </BrowserRouter>, 
     div
   );

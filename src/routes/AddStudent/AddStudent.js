@@ -100,6 +100,7 @@ class AddStudent extends React.Component {
               id="student_first"
               placeholder="First Name" 
               required
+              value={this.state.student_first}
               onChange={this.updateState} />
             <input 
               type="text" 
@@ -107,6 +108,7 @@ class AddStudent extends React.Component {
               id="student_last" 
               placeholder="Last Name" 
               required
+              value={this.state.student_last}
               onChange={this.updateState} /> 
             <input 
               type="text" 
@@ -114,6 +116,7 @@ class AddStudent extends React.Component {
               id="birth_date"
               placeholder="Birth date, mm/dd/yyyy" 
               required
+              value={this.state.birth_date}
               onChange={this.updateState} />
             <input 
               type="text" 
@@ -121,6 +124,7 @@ class AddStudent extends React.Component {
               id="parent_email"
               placeholder="Parent e-mail Address" 
               required
+              value={this.state.parent_email}
               onChange={this.updateState} />
           </div>
 
