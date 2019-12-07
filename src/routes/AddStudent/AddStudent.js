@@ -27,7 +27,8 @@ class AddStudent extends React.Component {
       student_last: this.state.student_last,
       birth_date: this.state.birth_date,
       parent_email: this.state.parent_email,
-      id: this.createId,
+      id: this.createId(),
+      teacher_id: this.context.teacherId,
     };
     if (readyToSubmit === true) {
       this.context.addStudentToContext(student);

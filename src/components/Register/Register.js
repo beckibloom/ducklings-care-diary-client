@@ -16,6 +16,10 @@ class Register extends React.Component {
 
   static contextType = DiaryContext;
 
+  createId = () => {
+    return Math.random().toString(36).substr(2, 9);
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
 
@@ -30,6 +34,7 @@ class Register extends React.Component {
       username: this.state.username,
       password: this.state.password,
       type: this.state.type,
+      id: this.createId(),
     };
     this.setState({
       error: null

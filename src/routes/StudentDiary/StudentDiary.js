@@ -29,7 +29,7 @@ class StudentDiary extends React.Component {
   }
 
   componentDidMount() {
-    const student = this.context.students.find(student => student.id === parseInt(this.props.match.params.studentId))
+    const student = this.context.students.find(student => student.id.toString() === this.props.match.params.studentId)
     this.setState({
       student: student,
     })

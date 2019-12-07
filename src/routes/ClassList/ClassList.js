@@ -21,7 +21,7 @@ class ClassList extends React.Component {
   };
 
   componentDidMount() {
-    const studentsOfTeacher = this.context.students.filter(student => student.teacher_id === parseInt(this.props.match.params.teacherId))
+    const studentsOfTeacher = this.context.students.filter(student => parseInt(student.teacher_id) === parseInt(this.props.match.params.teacherId))
     this.setStudents(studentsOfTeacher);
   }
 

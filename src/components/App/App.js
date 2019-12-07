@@ -96,7 +96,7 @@ class App extends React.Component {
 
   filterNotesByStudent = (studentId) => {
     const notes = this.state.notes;
-    const notesForStudent = notes.filter(note => note.student_id === parseInt(studentId));
+    const notesForStudent = notes.filter(note => parseInt(note.student_id) === parseInt(studentId));
     this.setState({
       studentNotes: notesForStudent,
     })
