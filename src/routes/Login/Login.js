@@ -1,6 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import DiaryContext from '../../DiaryContext';
+import AuthApiService from '../../services/auth-api-service';
+import TokenService from '../../services/token-service';
+import UsersApiService from '../../services/users-api-service';
 
 class Login extends React.Component {
   constructor(props) {
@@ -37,52 +40,49 @@ class Login extends React.Component {
       });
     }
 
-    let foundUser = this.context.users.find(user => (user.username).toLowerCase() === (this.state.username).toLowerCase())
-    if (!foundUser) {
-      this.setState({
-        error: 'Incorrect username or password usernotfound'
-      });
-      console.log({foundUser})
-      return false;
-    }
-
-    if (foundUser.password !== this.state.password) {
-      this.setState({
-        error: 'Incorrect username or password passwordnotmatching'
-      });
-      console.log({foundUser}, this.state.password)
-      return false;
-    }
-
-    if (foundUser.password === this.state.password) {
-      this.setState({
-        error: null,
-        username_error: null,
-        password_error: null,
-        user_type: foundUser.type,
-      });
-      this.context.setAdminStatus(foundUser.type);
-
-      if (foundUser.type === 'parent') {
-        const parentEmail = foundUser.username;
-        this.context.updateParentEmail(parentEmail);
-        const student = this.context.students.find(student => student.parent_email === parentEmail)
-        this.props.history.push(`/student/${student.id}`)
-        this.context.filterNotesByStudent(student.id);
-        return false;
-      }
-      return true;
+    return true;
     }
   }
 
   handleSubmit = e => {
     e.preventDefault();
-    const isUserValid = this.validateUserData();
+    const isUserDataValid = this.validateUserData();
     if (isUserValid === true) {
-      const currentUser = this.context.users.find(user => user.username.toLowerCase() === this.state.username.toLowerCase());
-      const teacherId = currentUser.id;
-      this.context.updateTeacherId(teacherId);
-      this.props.history.push(`/class/${teacherId}`)
+      const credentials = {
+        username: this.state.username,
+        password: this.state.password
+      }
+
+      AuthApiService.postLogin(credentials)
+        .then(res =>
+          TokenService.saveAuthToken(res.authToken))
+        .then(res =>
+          UsersApiService.getUserData((resJson) => {
+            resJson
+              .then(resJson => {
+                if (resJson.type === 'parent') {
+                  this.context.setAdminStatus(resJson.type)
+                  const parentEmail = this.state.username
+                  // GET student {id, (teacher_id?)} by parentEmail
+                  // this.props.history.push(`/student/${id}`)
+                }
+                if (resJson.type === 'teacher') {
+                  this.context.setAdminStatus(resJson.type)
+                  this.context.updateTeacherId(resJson.id)
+                  this.props.history.push(`/class/${resJson.id}`)
+                }
+              })
+              .catch(err => this.context.setError(err));
+          }))
+        .catch(err => this.context.setError(err));
+
+    if (foundUser.type === 'parent') {
+      const parentEmail = foundUser.username;
+      this.context.updateParentEmail(parentEmail);
+      const student = this.context.students.find(student => student.parent_email === parentEmail)
+      this.props.history.push(`/student/${student.id}`)
+      this.context.filterNotesByStudent(student.id);
+      return false;
     }
   }
 

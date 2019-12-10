@@ -104,6 +104,10 @@ class App extends React.Component {
     })
   };
 
+  setError = (error) => {
+    this.setState({error})
+  }
+
   componentDidMount = () => {
     this.setStore();
   }
@@ -126,6 +130,7 @@ class App extends React.Component {
       updateStudentInContext: this.updateStudentInContext,
       filterNotesByStudent: this.filterNotesByStudent,
       updateParentEmail: this.updateParentEmail,
+      setError: this.setError,
     }
 
     return (

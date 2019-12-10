@@ -2,6 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import './Register.css';
 import DiaryContext from '../../DiaryContext';
+import UsersApiService from '../../services/users-api-service';
 
 class Register extends React.Component {
   constructor(props) {
@@ -34,14 +35,15 @@ class Register extends React.Component {
       username: this.state.username,
       password: this.state.password,
       type: this.state.type,
-      id: this.createId(),
     };
-    this.setState({
-      error: null
-    });
-    this.context.addUserToContext(newUser);
-    this.props.history.push(`/login`);
-  }
+
+    UsersApiService.postUser(newUser)
+      .then(this.setState({
+          error: null
+        }))
+      .then(this.props.history.push(`/login`))
+      .catch(this.context.setError);
+  };
 
   updateUserType = (e) => {
     const value = e.target.value;

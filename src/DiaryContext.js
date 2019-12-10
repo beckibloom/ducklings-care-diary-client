@@ -17,6 +17,7 @@ const DiaryContext = React.createContext({
   updateStudentInContext: () => {},
   filterNotesByStudent: () => {},
   updateParentEmail: () => {},
+  setError: () => {},
 });
 
 export default DiaryContext;
