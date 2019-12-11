@@ -10,7 +10,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'newteacher@email.com',
+      username: 'gfremont@email.com',
       password: 'Password123!',
       error: null,
       username_error: null,
@@ -62,8 +62,12 @@ class Login extends React.Component {
               .then(resJson => {
                 if (resJson.type === 'parent') {
                   this.context.setAdminStatus(resJson.type)
-                  const student = StudentsApiService.getStudentByParent()
-                  this.props.history.push(`/student/${student.id}`)
+                  StudentsApiService.getStudentByParent()
+                    .then(res => {
+                      console.log('resJson.type === parent')
+                      console.log(res);
+                      this.props.history.push(`/student/${res.id}`)
+                    })
                 }
                 if (resJson.type === 'teacher') {
                   this.context.setAdminStatus(resJson.type)

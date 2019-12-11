@@ -11,6 +11,8 @@ const StudentsApiService = {
       },
     })
       .then(res => {
+        console.log('getStudentByParent()')
+        console.log({res});
         (!res.ok)
           ? res.json().then(e=>Promise.reject(e))
           : res.json()

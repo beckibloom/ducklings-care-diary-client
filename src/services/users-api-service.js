@@ -25,6 +25,8 @@ const UsersApiService = {
       },
     })
       .then(res => {
+        console.log('getUserData(cb)');
+        console.log({res});
         (!res.ok)
           ? res.json().then(e=>Promise.reject(e))
           : cb(res.json())
