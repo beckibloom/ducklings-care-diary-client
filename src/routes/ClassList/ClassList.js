@@ -31,7 +31,8 @@ class ClassList extends React.Component {
   componentDidMount() {
     StudentsApiService.getStudentsByTeacher(this.props.match.params.teacherId)
       .then(res => {
-        console.log({res})    
+        console.log('componentDidMount');
+        console.log(res);
       })
       .catch(this.context.setError);
     

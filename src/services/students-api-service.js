@@ -19,7 +19,6 @@ const StudentsApiService = {
 
   getStudentsByTeacher(teacher_id) {
     return fetch(`${config.API_BASE_URL}/students/${teacher_id}`, {
-      method: 'GET',
       headers: {
         'content-type': 'application/json',
         'authorization': `bearer ${TokenService.getAuthToken()}`,
@@ -27,11 +26,11 @@ const StudentsApiService = {
     })
       .then(res => {
         //having trouble getting response data to be read after GET request is completed, but the response shows up in the Network tab.
-        console.log(res.body)
-        // (!res.ok)
-        //   ? res.json().then(e=>Promise.reject(e))
-        //   : res.json()
-      });
+        console.log(res);
+        (!res.ok)
+          ? res.json().then(e=>Promise.reject(e))
+          : res.json()
+      })
   },
 };
 
