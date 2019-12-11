@@ -17,7 +17,7 @@ const UsersApiService = {
       });
   },
 
-  getUserData() {
+  getUserData(cb) {
     return fetch(`${config.API_BASE_URL}/users/data`, {
       headers: {
         'content-type': 'application/json',
@@ -27,7 +27,7 @@ const UsersApiService = {
       .then(res => {
         (!res.ok)
           ? res.json().then(e=>Promise.reject(e))
-          : res.json()
+          : cb(res.json())
       });
   },
 };

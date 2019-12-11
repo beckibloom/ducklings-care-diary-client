@@ -4,13 +4,14 @@ import DiaryContext from '../../DiaryContext';
 import AuthApiService from '../../services/auth-api-service';
 import TokenService from '../../services/token-service';
 import UsersApiService from '../../services/users-api-service';
+import StudentsApiService from '../../services/students-api-service';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      username: 'teacher@email.com',
+      password: 'Password123!',
       error: null,
       username_error: null,
       password_error: null,
@@ -41,13 +42,12 @@ class Login extends React.Component {
     }
 
     return true;
-    }
   }
 
   handleSubmit = e => {
     e.preventDefault();
     const isUserDataValid = this.validateUserData();
-    if (isUserValid === true) {
+    if (isUserDataValid === true) {
       const credentials = {
         username: this.state.username,
         password: this.state.password
@@ -74,14 +74,6 @@ class Login extends React.Component {
               .catch(err => this.context.setError(err));
           }))
         .catch(err => this.context.setError(err));
-
-    if (foundUser.type === 'parent') {
-      const parentEmail = foundUser.username;
-      this.context.updateParentEmail(parentEmail);
-      const student = this.context.students.find(student => student.parent_email === parentEmail)
-      this.props.history.push(`/student/${student.id}`)
-      this.context.filterNotesByStudent(student.id);
-      return false;
     }
   }
 

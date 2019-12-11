@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import './ClassList.css';
 import Student from '../../components/Student/Student';
 import DiaryContext from '../../DiaryContext';
+import StudentsApiService from '../../services/students-api-service';
 
 class ClassList extends React.Component {
   constructor(props) {
@@ -14,16 +15,32 @@ class ClassList extends React.Component {
 
   static contextType = DiaryContext;
 
-  setStudents = (students) => {
-    this.setState({
-      students: students,
-    })
+  renderStudents = (students) => {
+    return (
+      students.map(student =>
+        <Student 
+          key={student.id}
+          firstname={student.student_first}
+          lastname={student.student_last}
+          studentId={student.id}
+        />
+      )
+    )
   };
 
   componentDidMount() {
-    // eslint-disable-next-line
-    const studentsOfTeacher = this.context.students.filter(student => student.teacher_id == this.props.match.params.teacherId)
-    this.setStudents(studentsOfTeacher);
+    StudentsApiService.getStudentsByTeacher(this.props.match.params.teacherId)
+      .then(res => {
+        console.log({res})    
+      })
+      .catch(this.context.setError);
+    
+      // .then(studentsOfTeacher => {
+      //   this.setState({
+      //     students: studentsOfTeacher,
+      //   })
+      // })
+      // .catch(err => this.context.setError(err))
   }
 
   render() {
@@ -34,14 +51,6 @@ class ClassList extends React.Component {
         </header>
         <section>
           <ul className="class-list">
-            {this.state.students.map(student =>
-              <Student 
-                key={student.id}
-                firstname={student.student_first}
-                lastname={student.student_last}
-                studentId={student.id}
-              />
-            )}
             <li>
               <Link to="/addstudent">Add new student</Link>
             </li>
