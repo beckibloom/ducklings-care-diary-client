@@ -62,9 +62,8 @@ class Login extends React.Component {
               .then(resJson => {
                 if (resJson.type === 'parent') {
                   this.context.setAdminStatus(resJson.type)
-                  const parentEmail = this.state.username
-                  // GET student {id, (teacher_id?)} by parentEmail
-                  // this.props.history.push(`/student/${id}`)
+                  const student = StudentsApiService.getStudentByParent()
+                  this.props.history.push(`/student/${student.id}`)
                 }
                 if (resJson.type === 'teacher') {
                   this.context.setAdminStatus(resJson.type)
