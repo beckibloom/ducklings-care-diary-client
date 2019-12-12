@@ -6,7 +6,12 @@ class EditStudent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentId: '',
+      student_first: '',
+      student_last: '',
+      birth_date: '',
+      parent_email: '',
+      id: null,
+      teacher_id: null
     }
   }
 
@@ -21,8 +26,8 @@ class EditStudent extends React.Component {
         student_last: document.getElementById('student_last').value,
         birth_date: document.getElementById('birth_date').value,
         parent_email: document.getElementById('parent_email').value,
-        id: this.state.studentId,
-        teacher_id: this.context.teacherId,
+        id: this.state.id,
+        teacher_id: this.state.teacher_id,
       };
       this.context.updateStudentInContext(studentToUpdate);
       this.props.history.push(`/class/${this.context.teacherId}`);
