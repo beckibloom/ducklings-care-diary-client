@@ -30,18 +30,12 @@ class ClassList extends React.Component {
 
   componentDidMount() {
     StudentsApiService.getStudentsByTeacher(this.props.match.params.teacherId)
-      .then(res => {
-        console.log('componentDidMount');
-        console.log(res);
+      .then(studentsOfTeacher => {
+        this.setState({
+          students: studentsOfTeacher,
+        })
       })
-      .catch(this.context.setError);
-    
-      // .then(studentsOfTeacher => {
-      //   this.setState({
-      //     students: studentsOfTeacher,
-      //   })
-      // })
-      // .catch(err => this.context.setError(err))
+      .catch(err => this.context.setError(err))
   }
 
   render() {
@@ -55,6 +49,7 @@ class ClassList extends React.Component {
             <li>
               <Link to="/addstudent">Add new student</Link>
             </li>
+            {this.renderStudents(this.state.students)}
           </ul>
         </section>
       </>

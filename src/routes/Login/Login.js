@@ -64,8 +64,6 @@ class Login extends React.Component {
                   this.context.setAdminStatus(resJson.type)
                   StudentsApiService.getStudentByParent()
                     .then(res => {
-                      console.log('resJson.type === parent')
-                      console.log(res);
                       this.props.history.push(`/student/${res.id}`)
                     })
                 }

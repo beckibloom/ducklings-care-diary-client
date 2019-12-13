@@ -11,9 +11,7 @@ const StudentsApiService = {
       },
     })
       .then(res => {
-        console.log('getStudentByParent()')
-        console.log({res});
-        (!res.ok)
+        return (!res.ok)
           ? res.json().then(e=>Promise.reject(e))
           : res.json()
       });
@@ -27,8 +25,6 @@ const StudentsApiService = {
       },
     })
       .then(res => {
-        //having trouble getting response data to be read after GET request is completed, but the response shows up in the Network tab.
-        console.log(res);
         return (!res.ok)
           ? res.json().then(e=>Promise.reject(e))
           : res.json()
@@ -44,11 +40,27 @@ const StudentsApiService = {
       },
     })
       .then(res => {
-        console.log('getStudentById()')
-        console.log({res});
-        (!res.ok)
+        return (!res.ok)
           ? res.json().then(e=>Promise.reject(e))
           : res.json()
+      });
+  },
+
+  putStudent(student) {
+    return fetch(`${config.API_BASE_URL}/students/id/${student.id}`, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+      body: JSON.stringify(
+        student
+      ),
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(e=>{throw e})
+        }
       });
   },
 };
