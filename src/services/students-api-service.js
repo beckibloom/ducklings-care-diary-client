@@ -53,9 +53,7 @@ const StudentsApiService = {
         'content-type': 'application/json',
         'authorization': `bearer ${TokenService.getAuthToken()}`,
       },
-      body: JSON.stringify(
-        student
-      ),
+      body: JSON.stringify(student),
     })
       .then(res => {
         if (!res.ok) {

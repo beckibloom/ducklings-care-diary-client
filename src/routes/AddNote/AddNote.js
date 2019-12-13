@@ -1,6 +1,9 @@
 import React from 'react';
 import './AddNote.css';
 import DiaryContext from '../../DiaryContext';
+import StudentsApiService from '../../services/students-api-service';
+import DiaryApiService from '../../services/diary-api-service';
+import UsersApiService from '../../services/users-api-service';
 
 class AddNote extends React.Component {
   constructor(props) {
@@ -27,23 +30,19 @@ class AddNote extends React.Component {
     }
   }
 
-  createId = () => {
-    return Math.random().toString(36).substr(2, 9);
-  };
-
   handleSubmit = (e) => {
     e.preventDefault();
     let readyToSubmit = this.validateFields();
     if (readyToSubmit === true) {
       const newNote = {
-        id: this.createId(),
         student_id: this.props.match.params.studentId,
         date: new Date().toDateString(),
         comment: this.state.note,
       }
-      this.context.addNewNote(newNote);
-      const teacherId = this.context.teacherId;
-      this.props.history.push(`/class/${teacherId}`)
+
+      DiaryApiService.postNote(newNote)
+        .then(res => this.props.history.push(`/class/${this.context.teacherId}`))
+        .catch(err => this.context.setError(err))     
     }
   }
 
@@ -58,6 +57,34 @@ class AddNote extends React.Component {
   goBack = (e) => {
     e.preventDefault();
     this.props.history.goBack();
+  }
+
+  componentDidMount() {
+    StudentsApiService.getStudentById(this.props.match.params.studentId)
+      .then(student => {
+        UsersApiService.getUserData((resJson) => {
+          resJson
+            .then(resJson => {
+              if (resJson.type === 'parent') {
+                this.context.setAdminStatus(resJson.type)
+                StudentsApiService.getStudentByParent()
+                  .then(res => {
+                    this.props.history.push(`/student/${res.id}`)
+                    return
+                  })
+              }
+              if (resJson.type === 'teacher') {
+                this.context.setAdminStatus(resJson.type)
+                this.context.updateTeacherId(resJson.id)
+                if (resJson.id !== student.teacher_id) {
+                  this.props.history.push(`/class/${resJson.id}`)
+                  return
+                }
+              }
+            })
+        })
+      })
+      .catch(err => this.context.setError(err))
   }
   
   render() {
