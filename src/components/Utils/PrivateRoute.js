@@ -1,16 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import DiaryContext from '../../DiaryContext';
+import TokenService from '../../services/token-service';
 
 export default function PrivateRoute({ component, ...props }) {
   const Component = component;
-  const contextObj = useContext(DiaryContext);
 
   return (
     <Route
       {...props}
       render={componentProps => (
-        ((contextObj.admin === 'parent') || (contextObj.admin === 'teacher'))
+        (TokenService.hasAuthToken())
           ? <Component {...componentProps} />
           : <Redirect
               to={{

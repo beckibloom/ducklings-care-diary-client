@@ -36,3 +36,8 @@ div.meals {
 .note {
   padding: 5px;
 }
+
+.teacher-buttons {
+  display: flex;
+  flex-direction: column;
+}

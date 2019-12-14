@@ -2,6 +2,8 @@ import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import './Nav.css';
 import DiaryContext from '../../DiaryContext';
+import TokenService from '../../services/token-service';
+import UsersApiService from '../../services/users-api-service';
 
 class Nav extends React.Component {
   static contextType = DiaryContext;
@@ -9,11 +11,12 @@ class Nav extends React.Component {
   logOut = (e) => {
     e.preventDefault();
     this.context.setAdminStatus(false);
+    TokenService.clearAuthToken();
     this.props.history.push('/')
   }
 
   renderLoginLogout = () => {
-    if (this.context.admin === false) {
+    if (TokenService.hasAuthToken() === false) {
       return (
       <Link to='/login'>
         <button>
@@ -38,6 +41,22 @@ class Nav extends React.Component {
           </div>
         )
       }
+  }
+
+  componentDidMount() {
+    UsersApiService.getUserData((resJson) => {
+      resJson
+        .then(resJson => {
+          if(resJson.type === 'parent') {
+            this.context.setAdminStatus(resJson.type)
+          }
+          if(resJson.type === 'teacher') {
+            this.context.setAdminStatus(resJson.type)
+            this.context.updateTeacherId(resJson.id)
+          }
+        })
+        .catch(err => this.context.setError(err))
+    })
   }
 
   render() {
