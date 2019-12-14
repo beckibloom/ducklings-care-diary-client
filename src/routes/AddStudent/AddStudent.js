@@ -1,6 +1,8 @@
 import React from 'react';
 import './AddStudent.css';
 import DiaryContext from '../../DiaryContext';
+import StudentsApiService from '../../services/students-api-service';
+import UsersApiService from '../../services/users-api-service';
 
 class AddStudent extends React.Component {
   constructor(props) {
@@ -15,10 +17,6 @@ class AddStudent extends React.Component {
 
   static contextType = DiaryContext;
 
-  createId = () => {
-    return Math.random().toString(36).substr(2, 9);
-  };
-
   handleSubmit = (e) => {
     e.preventDefault();
     let readyToSubmit = this.validateFields();
@@ -27,11 +25,10 @@ class AddStudent extends React.Component {
       student_last: this.state.student_last,
       birth_date: this.state.birth_date,
       parent_email: this.state.parent_email,
-      id: this.createId(),
       teacher_id: this.context.teacherId,
     };
     if (readyToSubmit === true) {
-      this.context.addStudentToContext(student);
+      StudentsApiService.addStudent(student);
       this.props.history.push(`/class/${this.context.teacherId}`);
     };
   };
@@ -82,6 +79,26 @@ class AddStudent extends React.Component {
 
   goBack = () => {
     this.props.history.goBack();
+  }
+
+  componentDidMount() {
+    UsersApiService.getUserData((resJson) => {
+      resJson
+        .then(resJson => {
+          if (resJson.type === 'parent') {
+            this.context.setAdminStatus(resJson.type)
+            StudentsApiService.getStudentByParent()
+              .then(res => {
+                this.props.history.push(`/student/${res.id}`)
+                return
+              })
+          }
+          if (resJson.type === 'teacher') {
+            this.context.setAdminStatus(resJson.type)
+            this.context.updateTeacherId(resJson.id)
+          }
+        })
+    })
   }
 
   render() {

@@ -26,9 +26,9 @@ class StudentDiary extends React.Component {
 
   deleteStudent = (e) => {
     e.preventDefault();
-    StudentsApiService.deleteStudent(this.props.match.params.studentId)
+    StudentsApiService.deleteStudent(this.state.student.id)
       .then(res => {
-        this.props.history.push(`/class/${this.state.teacher_id}`)
+        this.props.history.push(`/class/${this.state.student.teacher_id}`)
       })
       .catch(err => this.context.setError(err))
   }

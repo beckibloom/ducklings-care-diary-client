@@ -46,6 +46,22 @@ const StudentsApiService = {
       });
   },
 
+  addStudent(student) {
+    return fetch(`${config.API_BASE_URL}/students/${student.teacher_id}`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+      body: JSON.stringify(student),
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(e=>{throw e})
+        }
+      })
+  },
+
   putStudent(student) {
     return fetch(`${config.API_BASE_URL}/students/id/${student.id}`, {
       method: 'PUT',
@@ -60,6 +76,21 @@ const StudentsApiService = {
           return res.json().then(e=>{throw e})
         }
       });
+  },
+
+  deleteStudent(id) {
+    return fetch(`${config.API_BASE_URL}/students/id/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(e=>{throw e})
+        }
+      })
   },
 };
 

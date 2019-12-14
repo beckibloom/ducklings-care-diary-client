@@ -4,6 +4,7 @@ import './ClassList.css';
 import Student from '../../components/Student/Student';
 import DiaryContext from '../../DiaryContext';
 import StudentsApiService from '../../services/students-api-service';
+import UsersApiService from '../../services/users-api-service';
 
 class ClassList extends React.Component {
   constructor(props) {
@@ -36,6 +37,28 @@ class ClassList extends React.Component {
         })
       })
       .catch(err => this.context.setError(err))
+
+    UsersApiService.getUserData((resJson) => {
+      resJson
+        .then(resJson => {
+          if (resJson.type === 'parent') {
+            this.context.setAdminStatus(resJson.type)
+            StudentsApiService.getStudentByParent()
+              .then(res => {
+                this.props.history.push(`/student/${res.id}`)
+                return
+              })
+          }
+          if (resJson.type === 'teacher') {
+            this.context.setAdminStatus(resJson.type)
+            this.context.updateTeacherId(resJson.id)
+            if (resJson.id !== this.state.student.teacher_id) {
+              this.props.history.push(`/class/${resJson.id}`)
+              return
+            }
+          }
+        })
+      })
   }
 
   render() {
