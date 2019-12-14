@@ -53,7 +53,11 @@ class StudentDiary extends React.Component {
   }
 
   componentDidMount() {
-    StudentsApiService.getStudentById(this.props.match.params.studentId)
+    if (!this.props.match) {
+      return
+    }
+    const studentId = this.props.match.params.studentId;
+    StudentsApiService.getStudentById(studentId)
       .then(student => this.setState({student: student}))
       .then(res => {
         UsersApiService.getUserData((resJson) => {

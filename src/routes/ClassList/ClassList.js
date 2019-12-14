@@ -30,7 +30,11 @@ class ClassList extends React.Component {
   };
 
   componentDidMount() {
-    StudentsApiService.getStudentsByTeacher(this.props.match.params.teacherId)
+    let teacherId;
+    if (this.props.match) {
+      teacherId = this.props.match.params.teacherId
+    }
+    StudentsApiService.getStudentsByTeacher(teacherId)
       .then(studentsOfTeacher => {
         this.setState({
           students: studentsOfTeacher,
@@ -52,7 +56,7 @@ class ClassList extends React.Component {
           if (resJson.type === 'teacher') {
             this.context.setAdminStatus(resJson.type)
             this.context.updateTeacherId(resJson.id)
-            if (resJson.id !== this.state.student.teacher_id) {
+            if (resJson.id !== teacherId) {
               this.props.history.push(`/class/${resJson.id}`)
               return
             }

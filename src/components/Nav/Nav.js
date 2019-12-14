@@ -44,19 +44,21 @@ class Nav extends React.Component {
   }
 
   componentDidMount() {
-    UsersApiService.getUserData((resJson) => {
-      resJson
-        .then(resJson => {
-          if(resJson.type === 'parent') {
-            this.context.setAdminStatus(resJson.type)
-          }
-          if(resJson.type === 'teacher') {
-            this.context.setAdminStatus(resJson.type)
-            this.context.updateTeacherId(resJson.id)
-          }
-        })
-        .catch(err => this.context.setError(err))
-    })
+    if (TokenService.getAuthToken()) {
+      UsersApiService.getUserData((resJson) => {
+        resJson
+          .then(resJson => {
+            if(resJson.type === 'parent') {
+              this.context.setAdminStatus(resJson.type)
+            }
+            if(resJson.type === 'teacher') {
+              this.context.setAdminStatus(resJson.type)
+              this.context.updateTeacherId(resJson.id)
+            }
+          })
+          .catch(err => this.context.setError(err))
+      })
+    }
   }
 
   render() {

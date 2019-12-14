@@ -32,10 +32,14 @@ class AddNote extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    let studentId;
+    if (this.props.match) {
+      studentId = this.props.match.params.studentId
+    }
     let readyToSubmit = this.validateFields();
     if (readyToSubmit === true) {
       const newNote = {
-        student_id: this.props.match.params.studentId,
+        student_id: studentId,
         date: new Date().toDateString(),
         comment: this.state.note,
       }
@@ -60,7 +64,11 @@ class AddNote extends React.Component {
   }
 
   componentDidMount() {
-    StudentsApiService.getStudentById(this.props.match.params.studentId)
+    if (!this.props.match) {
+      return
+    }
+    const studentId = this.props.match.params.studentId;
+    StudentsApiService.getStudentById(studentId)
       .then(student => {
         UsersApiService.getUserData((resJson) => {
           resJson

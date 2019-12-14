@@ -92,7 +92,10 @@ class EditStudent extends React.Component {
   }
 
   componentDidMount() {
-    const studentId = this.props.match.params.studentId
+    if (!this.props.match) {
+      return
+    }
+    const studentId = this.props.match.params.studentId;
     StudentsApiService.getStudentById(studentId)
       .then(studentObj => this.setState({
         student_first: studentObj.student_first,

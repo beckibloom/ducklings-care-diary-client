@@ -32,6 +32,21 @@ const DiaryApiService = {
           : res.json()
       })
   },
+
+  deleteEntry(student_id, entry_id) {
+    return fetch(`${config.API_BASE_URL}/diary/${student_id}/${entry_id}`, {
+      method: 'DELETE',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(e=>{throw e})
+        }
+      })
+  },
 }
 
 export default DiaryApiService;
