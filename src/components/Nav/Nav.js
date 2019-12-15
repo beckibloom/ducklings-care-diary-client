@@ -20,20 +20,20 @@ class Nav extends React.Component {
       return (
       <Link to='/login'>
         <button>
-          Log in to my diary
+          Log in
         </button>
       </Link>)
     } else if (this.context.admin === 'parent') {
       return (
         <button onClick={this.logOut}>
-          Log out of my diary
+          Log out
         </button>
       )
       } else if (this.context.admin === 'teacher') {
         return (
           <div>
             <button onClick={this.logOut}>
-              Log out of my diary
+              Log out
             </button>
             <Link to={`/class/${this.context.teacherId}`}>
               <button>Go to class list</button>
