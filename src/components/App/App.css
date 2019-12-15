@@ -11,13 +11,6 @@ body {
   line-height: 1.5;
 }
 
-nav,
-footer {
-  padding: 1% 0;
-  background-color: #aaa;
-}
-
-
 header {
   padding: 30px 15px;
 }
@@ -25,11 +18,11 @@ header {
 section {
   min-height: 200px;
   padding: 30px 15px;
-  background-color: #bbb;
+  background-color: #f6faaa;
 }
 
 section:nth-child(even) {
-  background-color: #ddd;
+  background-color: #def9fa;
 }
 
 p {
@@ -47,4 +40,15 @@ input {
 
 .error {
   color: red;
+}
+
+h1, h3 {
+  font-family: 'Baloo Bhai', cursive;
+}
+
+button {
+  background:rgb(255, 216, 107);
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin:3px;
 }

@@ -5,6 +5,7 @@ nav {
   right: 0;
   z-index: 10;
   padding:5px;
+  background-color:#a4f1f5;
 }
 
 nav ul {
@@ -13,4 +14,16 @@ nav ul {
   justify-content: space-between;
   padding:0;
   margin:0;
+  height:100%;
+  align-items:center;
+}
+
+nav li {
+  height:100%;
+  padding:0;
+  margin:0;
+}
+
+.nav-icon {
+  height:35px;
 }

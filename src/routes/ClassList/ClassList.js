@@ -73,7 +73,7 @@ class ClassList extends React.Component {
         </header>
         <section>
           <ul className="class-list">
-            <li>
+            <li className="student-row">
               <Link to="/addstudent">Add new student</Link>
             </li>
             {this.renderStudents(this.state.students)}

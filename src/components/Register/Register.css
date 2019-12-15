@@ -5,3 +5,29 @@
   margin:auto;
   justify-content: space-between;
 }
+
+.select-user-type .type-select {
+  background-color:white;
+  border-radius:5px;
+  text-align:center;
+  border:1px solid gray;
+}
+
+.select-user-type div {
+  padding:3px;
+  margin:3px;
+}
+
+/* .radio {
+  clip-path:polygon(0 0);
+}  */
+
+label {
+  cursor:pointer;
+}
+
+.radio input:checked + label {
+  font-weight:bold;
+  color:#B80000;
+}
+

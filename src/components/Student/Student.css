@@ -1,0 +1,27 @@
+.student ul {
+  list-style-type:none;
+  padding:0;
+  display:flex;
+  justify-content:space-between;
+}
+
+.student li {
+  margin:5px;
+  display:flex;
+}
+
+.name {
+  flex:1;
+}
+
+.student-buttons {
+  flex:2;
+}
+
+@media only screen and (max-width:675px) {
+  .student-buttons {
+    display: flex;
+    flex-direction: column;
+    
+  }
+}

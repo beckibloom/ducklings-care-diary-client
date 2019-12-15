@@ -5,6 +5,7 @@ import AuthApiService from '../../services/auth-api-service';
 import TokenService from '../../services/token-service';
 import UsersApiService from '../../services/users-api-service';
 import StudentsApiService from '../../services/students-api-service';
+import './Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -103,12 +104,10 @@ class Login extends React.Component {
         <section>
           <form className='signup-form' onSubmit={this.handleSubmit} >
               <div>
-                <label htmlFor="username">Username</label>
-                <input type="text" name='username' id='username' value={this.state.username} onChange={this.updateState} />
+                <input type="text" name='username' id='username' value={this.state.username} onChange={this.updateState} placeholder="Username" />
               </div>
               <div>
-                <label htmlFor="password">Password</label>
-                <input type="password" name='password' id='password' value={this.state.password} onChange={this.updateState} />
+                <input type="password" name='password' id='password' value={this.state.password} onChange={this.updateState} placeholder="Password" />
               </div>
               <button type='submit'>Sign In</button>
               <p className="error">{this.state.error}</p>
@@ -116,7 +115,8 @@ class Login extends React.Component {
               <p className="error">{this.state.password_error}</p>
 
               <div>
-                Don't have a diary yet? <Link to='/register'>Sign up now.</Link>
+                Don't have a diary yet? 
+                <p><Link to='/register'>Sign up now.</Link></p>
               </div>
           </form>
         </section>

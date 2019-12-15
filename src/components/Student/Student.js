@@ -1,6 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import DiaryContext from '../../DiaryContext';
+import './Student.css';
 
 class Student extends React.Component {
   static contextType = DiaryContext;
@@ -27,13 +28,13 @@ class Student extends React.Component {
 
   render() {
     return (
-      <li>
+      <li className="student-row">
         <div className="student">
           <ul>
             <li className="name">
               {this.props.firstname} {this.props.lastname}
             </li>
-            <li>
+            <li className="student-buttons">
               <button onClick={this.editProfile}>Edit Profile</button>
               <button onClick={this.addNote}>Leave a Note</button>
               <button onClick={this.filterNotes}>View Student Diary</button>

@@ -71,17 +71,15 @@ class Register extends React.Component {
             </div>
             <div className="select-user-type">
               <div>
-                <label htmlFor="user-type">I am a...</label>
+                <p>I am a...</p>
               </div>
-              <div>
-              <label htmlFor="teacher">Teacher
-                  <input type="radio" name="user-type" value="teacher" id="teacher" onChange={this.updateUserType} />
-                </label>
+              <div className="type-select">
+                <input className="radio" type="radio" name="user-type" value="teacher" id="teacher" onChange={this.updateUserType} />
+                <label htmlFor="teacher">Teacher</label>
               </div>
-              <div>
-              <label htmlFor="parent">Parent/Caregiver
-                  <input type="radio" name="user-type" value="parent" onChange={this.updateUserType} />
-                </label>
+              <div className="type-select">
+                <input className="radio" type="radio" name="user-type" value="parent" onChange={this.updateUserType} id="parent" />
+                <label htmlFor="parent">Parent</label>
               </div>
             </div>
             <button type='submit'>Sign Up</button>

@@ -4,6 +4,7 @@ import './Nav.css';
 import DiaryContext from '../../DiaryContext';
 import TokenService from '../../services/token-service';
 import UsersApiService from '../../services/users-api-service';
+import DuckIcon from '../../images/duck.png';
 
 class Nav extends React.Component {
   static contextType = DiaryContext;
@@ -66,7 +67,9 @@ class Nav extends React.Component {
       <nav role="navigation">
         <ul>
           <li>
-            <Link to='/'>[logo placeholder]</Link>
+            <Link to='/'>
+              <img src={DuckIcon} alt="Duck" className="nav-icon" />
+            </Link>
           </li>
           <li>
             {this.renderLoginLogout()}
