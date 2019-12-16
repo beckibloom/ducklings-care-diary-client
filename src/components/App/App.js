@@ -1,10 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-
 import './App.css';
 import DiaryContext from '../../DiaryContext';
-import STORE from '../../store';
-
 import Nav from '../Nav/Nav';
 import LandingPage from '../../routes/LandingPage/LandingPage';
 import Login from '../../routes/Login/Login';
@@ -27,6 +24,8 @@ class App extends React.Component {
     this.state = {
       admin: false,
       teacherId: null,
+      notes: [],
+      students: [],
     };
   };
 
@@ -83,15 +82,9 @@ class App extends React.Component {
     })
   };
 
-  setStore = () => {
-    const users = STORE.users;
-    const students = STORE.students;
-    const notes = STORE.notes;
-
+  setStudents = (students) => {
     this.setState({
-      users,
-      students,
-      notes,
+      students
     });
   };
 
@@ -108,10 +101,6 @@ class App extends React.Component {
     this.setState({error})
   }
 
-  componentDidMount = () => {
-    this.setStore();
-  }
-
   render() {
     const contextValue = {
       admin: this.state.admin,
@@ -125,7 +114,7 @@ class App extends React.Component {
       addStudentToContext: this.addStudentToContext,
       addUserToContext: this.addUserToContext,
       addNewNote: this.addNewNote,
-      setStore: this.setStore,
+      setStudents: this.setStudents,
       updateTeacherId: this.updateTeacherId,
       updateStudentInContext: this.updateStudentInContext,
       filterNotesByStudent: this.filterNotesByStudent,

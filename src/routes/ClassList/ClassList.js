@@ -7,26 +7,23 @@ import StudentsApiService from '../../services/students-api-service';
 import UsersApiService from '../../services/users-api-service';
 
 class ClassList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      students: [],
-    }
-  }
-
   static contextType = DiaryContext;
 
   renderStudents = (students) => {
-    return (
-      students.map(student =>
-        <Student 
-          key={student.id}
-          firstname={student.student_first}
-          lastname={student.student_last}
-          studentId={student.id}
-        />
+    if (!this.context.students) {
+      return;
+    } else {
+      return (
+        students.map(student =>
+          <Student 
+            key={student.id}
+            firstname={student.student_first}
+            lastname={student.student_last}
+            studentId={student.id}
+          />
+        )
       )
-    )
+    }
   };
 
   componentDidMount() {
@@ -36,9 +33,7 @@ class ClassList extends React.Component {
     }
     StudentsApiService.getStudentsByTeacher(teacherId)
       .then(studentsOfTeacher => {
-        this.setState({
-          students: studentsOfTeacher,
-        })
+        this.context.setStudents(studentsOfTeacher);
       })
       .catch(err => this.context.setError(err))
 
@@ -76,7 +71,7 @@ class ClassList extends React.Component {
             <li className="student-row">
               <Link to="/addstudent">Add new student</Link>
             </li>
-            {this.renderStudents(this.state.students)}
+            {this.renderStudents(this.context.students)}
           </ul>
         </section>
       </>

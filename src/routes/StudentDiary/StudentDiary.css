@@ -3,7 +3,7 @@
   font-weight:bold;
 }
 
-div.main-content {
+.main-content {
   display:flex;
 }
 
@@ -13,6 +13,7 @@ div.main-content {
 
 .diary {
   text-align:left;
+  background-color:#def9fa;
 }
 
 .diary ul {
@@ -20,14 +21,10 @@ div.main-content {
   padding:0;
 }
 
-div.comment, div.meals, div.nap, div.bathroom, div.next-time {
+div.comment {
   border: 1px solid black;
   margin-top: 5px;
   padding:3px;
-}
-
-div.meals {
-  margin-top:5px;
 }
 
 .note {
@@ -42,10 +39,11 @@ div.meals {
 
 .teacher-buttons button {
   width:200px;
+  margin-right:10px;
 }
 
 @media only screen and (max-width:550px) {
-  div.main-content {
+  .main-content {
     flex-direction:column;
   }
 }

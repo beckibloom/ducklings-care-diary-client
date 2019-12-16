@@ -78,9 +78,13 @@ class Login extends React.Component {
                   this.props.history.push(`/class/${resJson.id}`)
                 }
               })
-              .catch(err => this.context.setError(err));
+              .catch(err => this.setState({
+                username_error: 'Invalid username or password'
+              }));
           }))
-        .catch(err => this.context.setError(err));
+        .catch(err => this.setState({
+          username_error: 'Invalid username or password'
+        }));
     }
   }
 

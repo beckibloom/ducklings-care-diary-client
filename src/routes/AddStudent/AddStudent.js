@@ -29,9 +29,64 @@ class AddStudent extends React.Component {
     };
     if (readyToSubmit === true) {
       StudentsApiService.addStudent(student);
+      this.context.addStudentToContext(student);
       this.props.history.push(`/class/${this.context.teacherId}`);
     };
   };
+
+  validateBirthDate = (input) => {
+    let dateformat = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+    if(input.match(dateformat)) {
+      document.addstudent.birthdate.focus();
+      let operator1 = input.split('/');
+      let operator2 = input.split('-');
+      let lopera1 = operator1.length;
+      let lopera2 = operator2.length;
+      let pdate;
+      if (lopera1 > 1) {
+        pdate = input.split('/');
+      } else if (lopera2 > 1) {
+        pdate = input.split('-');
+      }
+      let dd = parseInt(pdate[0]);
+      let mm  = parseInt(pdate[1]);
+      let yy = parseInt(pdate[2]);
+      let ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+      if (mm===1 || mm>2) {
+        if (dd>ListofDays[mm-1]) {
+          this.setState({
+            dateError: 'Expected birth date format is mm/dd/yy (day number does not exist)'
+          });
+        return false;
+        }
+      }
+      if (mm===2) {
+        let lyear = false;
+        if ( (!(yy % 4) && yy % 100) || !(yy % 400)) {
+          lyear = true;
+        }
+        if ((lyear===false) && (dd>=29)) {
+          this.setState({
+            dateError: 'Expected birth date format is mm/dd/yy (not a leap year and dd>=29)'
+          });
+          return false;
+        }
+        if ((lyear===true) && (dd>29)) {
+          this.setState({
+            dateError: 'Expected birth date format is mm/dd/yy (leap year && dd>29)'
+          });
+          return false;
+        }
+      }
+    } else {
+      this.setState({
+        dateError: 'Expected birth date format is mm/dd/yy (doesnt pass regex)'
+      });  
+      document.addstudent.birthdate.focus();
+      return false;
+    }
+    return true;
+  }
 
   validateFields = () => {
     if (this.state.student_first.length === 0 || this.state.student_last.length === 0 || this.state.birth_date.length === 0 || this.state.parent_email.length === 0) {
@@ -45,15 +100,12 @@ class AddStudent extends React.Component {
       })
     }
 
-    if (this.state.birth_date.charAt(2) !== '/' || this.state.birth_date.charAt(5) !== '/' || this.state.birth_date.length !== 10) {
-      this.setState({
-        dateError: 'Expected birth date format is mm/dd/yyyy'
-      });
+    if (this.validateBirthDate(this.state.birth_date) === false) {
       return false;
     } else {
       this.setState({
         dateError: ''
-      })
+      });
     }
 
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.parent_email)) {
@@ -108,7 +160,7 @@ class AddStudent extends React.Component {
         <h1>New Student</h1>
       </header>
       <section>
-        <form id="add-student" onSubmit={this.handleSubmit}>
+        <form id="add-student" onSubmit={this.handleSubmit} name="addstudent">
           <div className="form-section">
             <label htmlFor="first-name">Student details</label>
             <input 
@@ -129,9 +181,9 @@ class AddStudent extends React.Component {
               onChange={this.updateState} /> 
             <input 
               type="text" 
-              name="birth-date" 
+              name="birthdate" 
               id="birth_date"
-              placeholder="Birth date, mm/dd/yyyy" 
+              placeholder="Birth date, mm/dd/yy" 
               required
               value={this.state.birth_date}
               onChange={this.updateState} />
@@ -148,9 +200,9 @@ class AddStudent extends React.Component {
 
           <button type="submit">Add Student</button>
           <button onClick={this.goBack}>Go back</button>
-          <p>{this.state.error}</p>
-          <p>{this.state.dateError}</p>
-          <p>{this.state.emailError}</p>
+          <p className="error">{this.state.error}</p>
+          <p className="error">{this.state.dateError}</p>
+          <p className="error">{this.state.emailError}</p>
         </form>
       </section>
     </>

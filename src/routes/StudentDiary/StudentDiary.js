@@ -25,12 +25,15 @@ class StudentDiary extends React.Component {
   static contextType = DiaryContext;
 
   deleteStudent = (e) => {
-    e.preventDefault();
-    StudentsApiService.deleteStudent(this.state.student.id)
-      .then(res => {
-        this.props.history.push(`/class/${this.state.student.teacher_id}`)
-      })
-      .catch(err => this.context.setError(err))
+    let r = window.confirm('Are you sure you want to delete this student?');
+    if (r === true) {
+      e.preventDefault();
+      StudentsApiService.deleteStudent(this.state.student.id)
+        .then(res => {
+          this.props.history.push(`/class/${this.state.student.teacher_id}`)
+        })
+        .catch(err => this.context.setError(err))  
+    }
   }
 
   renderTeacherButtons = () => {
@@ -101,22 +104,22 @@ class StudentDiary extends React.Component {
       <header>
         <h1>Student Diary</h1>
       </header>
-      <div className="main-content">
-        <section className="profile-detail">
+      <section className="main-content">
+        <div className="profile-detail">
           <h3>{this.state.student.student_first} {this.state.student.student_last}</h3>
           <p><span className="bold">Birth date:</span> {this.state.student.birth_date}</p>
           <p><span className="bold">Parent user:</span> {this.state.student.parent_email}</p>
           {this.renderTeacherButtons()}
-        </section>
-        <section className="diary">
+        </div>
+        <div className="diary">
           <ul>
-            {this.state.notes.map(note => 
+            {this.state.notes.slice(0).reverse().map(note => 
               <DiaryNote 
                 key={note.id}
                 note={note} />)}
           </ul>
-        </section>
-      </div>
+        </div>
+      </section>
     </>
     )
   }

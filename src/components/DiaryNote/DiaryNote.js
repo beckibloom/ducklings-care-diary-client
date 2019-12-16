@@ -29,16 +29,19 @@ class DiaryNote extends React.Component {
   }
 
   deleteNote = (e) => {
-    e.preventDefault();
-    const studentId = this.props.note.student_id;
-    const entryId = this.props.note.id;
-    DiaryApiService.deleteEntry(studentId, entryId)
-      .then(res => {
-        this.setState({
-          deleted: true,
+    let r = window.confirm('Are you sure you want to delete this diary entry?');
+    if (r === true) {
+      e.preventDefault();
+      const studentId = this.props.note.student_id;
+      const entryId = this.props.note.id;
+      DiaryApiService.deleteEntry(studentId, entryId)
+        .then(res => {
+          this.setState({
+            deleted: true,
+          })
         })
-      })
-      .catch(err => this.context.setError(err))
+        .catch(err => this.context.setError(err))
+      }
   }
 
   renderButtons = () => {
