@@ -40,16 +40,16 @@ After parents emails have been entered by the teacher, parents can view their st
 ## Screenshots
 
 ### Landing Page
-<img width="900" alt="landing page screenshot" src=".\src\images\landingpage.PNG">
+<img width="900" alt="landing page screenshot" src=".\src\images\landingpage.png">
 
 ### Login
-<img width="900" alt="landing page screenshot" src=".\src\images\loginpage.PNG">
+<img width="900" alt="landing page screenshot" src=".\src\images\loginpage.png">
 
 ### Class List
-<img width="900" alt="landing page screenshot" src=".\src\images\classlistpage.PNG">
+<img width="900" alt="landing page screenshot" src=".\src\images\classlistpage.png">
 
 ### Student Diary
-<img width="900" alt="landing page screenshot" src=".\src\images\studentdiarypage.PNG">
+<img width="900" alt="landing page screenshot" src=".\src\images\studentdiarypage.png">
 
 ### Edit Student
-<img width="900" alt="landing page screenshot" src=".\src\images\editstudentpage.PNG">
+<img width="900" alt="landing page screenshot" src=".\src\images\editstudentpage.png">
