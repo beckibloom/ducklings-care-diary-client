@@ -1,6 +1,6 @@
 # Ducklings Care Diary Client
 
-<img width="900" alt="landing page screenshot" src=".\src\images\landingpage.PNG">
+<img width="900" alt="landing page screenshot" src=".\src\images\landingpage.png">
 
 [Live App](https://ducklings-care-diary.beckibloom.now.sh/)
 
