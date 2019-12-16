@@ -59,9 +59,7 @@ class Register extends React.Component {
   render() {
     return (
       <section>
-        <header>
-            <h3>Start your journey today</h3>
-        </header>
+        <h3>Start your journey today</h3>
         <form className='signup-form' onSubmit={this.handleSubmit} >
             <div>
               <input type="text" name='username' id='username' placeholder="E-mail" value={this.state.username} onChange={this.updateState} />

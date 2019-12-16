@@ -14,11 +14,11 @@ import ClassList from '../../routes/ClassList/ClassList';
 import AddStudent from '../../routes/AddStudent/AddStudent';
 import StudentDiary from '../../routes/StudentDiary/StudentDiary';
 import Register from '../../components/Register/Register';
-
-import PrivateRoute from '../Utils/PrivateRoute';
-import PublicOnlyRoute from '../Utils/PublicOnlyRoute';
 import AddNote from '../../routes/AddNote/AddNote';
 import EditStudent from '../../routes/EditStudent/EditStudent';
+import StudentError from '../../routes/StudentError/StudentError';
+import PrivateRoute from '../Utils/PrivateRoute';
+import PublicOnlyRoute from '../Utils/PublicOnlyRoute';
 
 
 class App extends React.Component {
@@ -152,6 +152,11 @@ class App extends React.Component {
               exact 
               path='/error' 
               component={AuthError} 
+            />
+            <Route
+              exact
+              path='/student/0'
+              component={StudentError}
             />
             <PublicOnlyRoute
               exact

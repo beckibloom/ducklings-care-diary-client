@@ -2,6 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import DiaryContext from '../../DiaryContext';
 import DiaryApiService from '../../services/diary-api-service';
+import './DiaryNote.css';
 
 class DiaryNote extends React.Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class DiaryNote extends React.Component {
   renderButtons = () => {
     if (this.context.admin === 'teacher') {
       return (
-        <button onClick={this.deleteNote}>Delete Note</button>
+        <button className="delete" onClick={this.deleteNote}>Delete Note</button>
       )
     } 
   }

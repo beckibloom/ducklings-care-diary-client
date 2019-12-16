@@ -11,6 +11,9 @@ const StudentsApiService = {
       },
     })
       .then(res => {
+        if(res === undefined || res === null){
+          console.log('No student found');
+        }
         return (!res.ok)
           ? res.json().then(e=>Promise.reject(e))
           : res.json()

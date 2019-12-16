@@ -105,8 +105,7 @@ class StudentDiary extends React.Component {
         <section className="profile-detail">
           <h3>{this.state.student.student_first} {this.state.student.student_last}</h3>
           <p><span className="bold">Birth date:</span> {this.state.student.birth_date}</p>
-          <p><span className="bold">Parent user:</span>
-          {this.state.student.parent_email}</p>
+          <p><span className="bold">Parent user:</span> {this.state.student.parent_email}</p>
           {this.renderTeacherButtons()}
         </section>
         <section className="diary">

@@ -5,6 +5,9 @@
 .icon-credit {
   font-size: 14px;
   background-color: #def9fa;
+  max-width:1000px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .landing-icon {
