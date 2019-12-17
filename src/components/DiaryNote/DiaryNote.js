@@ -47,7 +47,7 @@ class DiaryNote extends React.Component {
   renderButtons = () => {
     if (this.context.admin === 'teacher') {
       return (
-        <button className="delete" onClick={this.deleteNote}>Delete Note</button>
+        <button className="delete" onClick={this.deleteNote}>Delete Entry</button>
       )
     } 
   }
@@ -58,7 +58,7 @@ class DiaryNote extends React.Component {
         <li className="note">
         <div className="comment">
           <h3>{this.renderDate()}</h3>
-          <span className="bold">Today's notes:</span> {this.props.note.comment}
+          <span className="bold">Today's entry:</span> {this.props.note.comment}
           {this.renderButtons()}
         </div>
         </li>

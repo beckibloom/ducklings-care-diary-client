@@ -36,8 +36,8 @@ class Student extends React.Component {
             </li>
             <li className="student-buttons">
               <button onClick={this.editProfile}>Edit Profile</button>
-              <button onClick={this.addNote}>Leave a Note</button>
-              <button onClick={this.filterNotes}>View Student Diary</button>
+              <button onClick={this.addNote}>Add Entry</button>
+              <button onClick={this.filterNotes}>View Diary</button>
             </li>
           </ul>
         </div>

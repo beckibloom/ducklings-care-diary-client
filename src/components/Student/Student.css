@@ -10,14 +10,6 @@
   display:flex;
 }
 
-.name {
-  flex:1;
-}
-
-.student-buttons {
-  flex:2;
-}
-
 @media only screen and (max-width:675px) {
   .student-buttons {
     display: flex;

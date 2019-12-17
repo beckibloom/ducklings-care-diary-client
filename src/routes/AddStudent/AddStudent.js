@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import './AddStudent.css';
 import DiaryContext from '../../DiaryContext';
 import StudentsApiService from '../../services/students-api-service';
@@ -35,57 +36,7 @@ class AddStudent extends React.Component {
   };
 
   validateBirthDate = (input) => {
-    let dateformat = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
-    if(input.match(dateformat)) {
-      document.addstudent.birthdate.focus();
-      let operator1 = input.split('/');
-      let operator2 = input.split('-');
-      let lopera1 = operator1.length;
-      let lopera2 = operator2.length;
-      let pdate;
-      if (lopera1 > 1) {
-        pdate = input.split('/');
-      } else if (lopera2 > 1) {
-        pdate = input.split('-');
-      }
-      let dd = parseInt(pdate[0]);
-      let mm  = parseInt(pdate[1]);
-      let yy = parseInt(pdate[2]);
-      let ListofDays = [31,28,31,30,31,30,31,31,30,31,30,31];
-      if (mm===1 || mm>2) {
-        if (dd>ListofDays[mm-1]) {
-          this.setState({
-            dateError: 'Expected birth date format is mm/dd/yy (day number does not exist)'
-          });
-        return false;
-        }
-      }
-      if (mm===2) {
-        let lyear = false;
-        if ( (!(yy % 4) && yy % 100) || !(yy % 400)) {
-          lyear = true;
-        }
-        if ((lyear===false) && (dd>=29)) {
-          this.setState({
-            dateError: 'Expected birth date format is mm/dd/yy (not a leap year and dd>=29)'
-          });
-          return false;
-        }
-        if ((lyear===true) && (dd>29)) {
-          this.setState({
-            dateError: 'Expected birth date format is mm/dd/yy (leap year && dd>29)'
-          });
-          return false;
-        }
-      }
-    } else {
-      this.setState({
-        dateError: 'Expected birth date format is mm/dd/yy (doesnt pass regex)'
-      });  
-      document.addstudent.birthdate.focus();
-      return false;
-    }
-    return true;
+    moment(input).format('MM/DD/YYYY').isValid();
   }
 
   validateFields = () => {
@@ -101,6 +52,9 @@ class AddStudent extends React.Component {
     }
 
     if (this.validateBirthDate(this.state.birth_date) === false) {
+      this.setState({
+        dateError: 'Expected date format is MM/DD/YYYY'
+      })
       return false;
     } else {
       this.setState({
