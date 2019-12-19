@@ -36,7 +36,7 @@ class AddStudent extends React.Component {
   };
 
   validateBirthDate = (input) => {
-    moment(input).format('MM/DD/YYYY').isValid();
+    return moment(input).isValid();
   }
 
   validateFields = () => {
@@ -134,7 +134,7 @@ class AddStudent extends React.Component {
               value={this.state.student_last}
               onChange={this.updateState} /> 
             <input 
-              type="text" 
+              type="date" 
               name="birthdate" 
               id="birth_date"
               placeholder="Birth date, mm/dd/yy" 
@@ -142,7 +142,7 @@ class AddStudent extends React.Component {
               value={this.state.birth_date}
               onChange={this.updateState} />
             <input 
-              type="text" 
+              type="email" 
               name="parent-1-email" 
               id="parent_email"
               placeholder="Parent e-mail Address" 

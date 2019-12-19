@@ -5,6 +5,7 @@ import Student from '../../components/Student/Student';
 import DiaryContext from '../../DiaryContext';
 import StudentsApiService from '../../services/students-api-service';
 import UsersApiService from '../../services/users-api-service';
+import AddUser from '../../images/add-user.png';
 
 class ClassList extends React.Component {
   static contextType = DiaryContext;
@@ -69,7 +70,11 @@ class ClassList extends React.Component {
         <section>
           <ul className="class-list">
             <li className="student-row">
-              <Link to="/addstudent">Add new student</Link>
+              <Link to="/addstudent">
+                <button className="add-student">
+                  <img src={AddUser} className="add-user" alt="Add student icon" />  Add student
+                </button>
+              </Link>
             </li>
             {this.renderStudents(this.context.students)}
           </ul>

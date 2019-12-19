@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import '../AddStudent/AddStudent.css';
 import DiaryContext from '../../DiaryContext';
 import StudentsApiService from '../../services/students-api-service';
@@ -36,6 +37,10 @@ class EditStudent extends React.Component {
     };
   };
 
+  validateBirthDate = (input) => {
+    return moment(input).isValid();
+  }
+
   validateFields = () => {
     if (document.getElementById('student_first').value === 0 || document.getElementById('student_last').value === 0 || document.getElementById('birth_date').value === 0 || document.getElementById('parent_email').value === 0) {
       this.setState({
@@ -48,15 +53,15 @@ class EditStudent extends React.Component {
       })
     }
 
-    if (document.getElementById('birth_date').value.charAt(2) !== '/' || document.getElementById('birth_date').value.charAt(5) !== '/' || document.getElementById('birth_date').value.length !== 10) {
+    if (this.validateBirthDate(this.state.birth_date) === false) {
       this.setState({
-        dateError: 'Expected birth date format is mm/dd/yyyy'
-      });
+        dateError: 'Expected date format is MM/DD/YYYY'
+      })
       return false;
     } else {
       this.setState({
         dateError: ''
-      })
+      });
     }
 
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById('parent_email').value)) {
@@ -157,14 +162,14 @@ class EditStudent extends React.Component {
               required
               onChange={this.updateState} /> 
             <input 
-              type="text" 
+              type="date" 
               name="birth-date" 
               id="birth_date"
               placeholder="Birth date, mm/dd/yyyy" 
               required
               onChange={this.updateState} />
             <input 
-              type="text" 
+              type="email" 
               name="parent-1-email" 
               id="parent_email"
               placeholder="Parent e-mail Address" 

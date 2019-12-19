@@ -29,3 +29,18 @@ li.student-option:nth-child(even) {
 .name {
   text-align:left;
 }
+
+.add-user {
+  height: 25px;
+  display:inline-block;
+  margin-right: 4px;
+}
+
+.add-student {
+  height: 37.5px;
+  display:flex;
+}
+
+.student-row a {
+  text-decoration:none;
+}
