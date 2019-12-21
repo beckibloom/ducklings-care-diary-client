@@ -9,7 +9,9 @@ class Register extends React.Component {
     super(props);
     this.state = {
       username: '',
+      username_error: null,
       password: '',
+      password_error: null,
       type: null,
       error: null,
     }
@@ -17,28 +19,71 @@ class Register extends React.Component {
 
   static contextType = DiaryContext;
 
+  validateUserData = () => {
+    const upperLowerNumberSpecial = new RegExp(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/);
+
+    if (this.state.username === null) {
+      this.setState({
+        username_error: 'Username may not be left blank.'
+      });
+      return false;
+    } else {
+      this.setState({
+        username_error: null
+      });
+    }
+
+    if (this.state.password === null) {
+      this.setState({
+        password_error: 'Password may not be left blank.'
+      });
+      return false;
+    } else if (this.state.password.length < 8) {
+      this.setState({
+        password_error: 'Password must be at least 8 characters long.'
+      });
+      return false;
+    } else if (this.state.password.length > 72) {
+      this.setState({
+        password_error:'Password must be less than 72 characters'
+      });
+      return false;
+    } else if (this.state.password.charAt(0) === ' ' || this.state.password.charAt(this.state.password.length-1) === ' ') {
+      this.setState({
+        password_error:'Password must not include spaces'
+      });
+      return false;
+    } else if (upperLowerNumberSpecial.test(this.state.password) === false) {
+      this.setState({
+        password_error:'Password must contain 1 of each: upper case, lower case, number and special character.'
+      });
+      return false;
+    } else {
+      this.setState({
+        password_error: null
+      });
+    }
+
+    return true;
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
 
-    if (this.state.email === null || this.state.password === null || this.state.type === null) {
-      this.setState({
-        error: `Whoops, something's missing! Make sure you fill in all the fields above.`
-      });
-      return;
+    if (this.validateUserData() === true) {
+      const newUser = {
+        username: this.state.username,
+        password: this.state.password,
+        type: this.state.type,
+      };
+  
+      UsersApiService.postUser(newUser)
+        .then(this.setState({
+            error: null
+          }))
+        .then(this.props.history.push(`/login`))
+        .catch(this.context.setError);
     }
-
-    const newUser = {
-      username: this.state.username,
-      password: this.state.password,
-      type: this.state.type,
-    };
-
-    UsersApiService.postUser(newUser)
-      .then(this.setState({
-          error: null
-        }))
-      .then(this.props.history.push(`/login`))
-      .catch(this.context.setError);
   };
 
   updateUserType = (e) => {
@@ -79,7 +124,8 @@ class Register extends React.Component {
             </div>
             <button type='submit'>Sign Up</button>
         </form>
-        <p className="error">{this.state.error}</p>
+        <p className="error">{this.state.username_error}</p>
+        <p className="error">{this.state.password_error}</p>
       </section>
     )
   }
