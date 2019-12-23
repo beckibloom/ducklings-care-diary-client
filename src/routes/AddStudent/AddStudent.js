@@ -29,9 +29,13 @@ class AddStudent extends React.Component {
       teacher_id: this.context.teacherId,
     };
     if (readyToSubmit === true) {
-      StudentsApiService.addStudent(student);
-      this.context.addStudentToContext(student);
-      this.props.history.push(`/class/${this.context.teacherId}`);
+      StudentsApiService.addStudent(student)
+        .then(res => {
+          this.context.addStudentToContext(student);this.props.history.push(`/class/${this.context.teacherId}`);
+        })
+        .catch(err => {
+          this.context.setError(err)
+        })
     };
   };
 
