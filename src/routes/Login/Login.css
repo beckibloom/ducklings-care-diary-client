@@ -1,4 +1,6 @@
 .signup-form input {
   margin:3px;
   text-align:center;
+  padding: 5px;
+  font-size:20px;
 }

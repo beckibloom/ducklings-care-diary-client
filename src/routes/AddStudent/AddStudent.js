@@ -132,15 +132,20 @@ class AddStudent extends React.Component {
               placeholder="Last Name" 
               required
               value={this.state.student_last}
-              onChange={this.updateState} /> 
-            <input 
-              type="date" 
-              name="birthdate" 
-              id="birth_date"
-              placeholder="Birth date, mm/dd/yy" 
-              required
-              value={this.state.birth_date}
               onChange={this.updateState} />
+            <div className="birthdate">
+              <label htmlFor="birthdate" className="birthdate-label">
+                Birth date
+              </label>
+              <input 
+                type="date" 
+                name="birthdate" 
+                id="birth_date"
+                placeholder="Birth date, mm/dd/yyyy" 
+                required
+                value={this.state.birth_date}
+                onChange={this.updateState} />
+            </div>
             <input 
               type="email" 
               name="parent-1-email" 

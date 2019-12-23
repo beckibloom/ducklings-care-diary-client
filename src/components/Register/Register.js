@@ -12,7 +12,7 @@ class Register extends React.Component {
       username_error: null,
       password: '',
       password_error: null,
-      type: null,
+      type: '',
       error: null,
     }
   }
@@ -117,7 +117,7 @@ class Register extends React.Component {
                 <p>I am a...</p>
               </div>
               <select className="type-select" required id="type" onChange={this.updateState} value={this.state.type}>
-                <option value={null}>(choose one)</option>
+                <option>(choose one)</option>
                 <option value="teacher">Teacher</option>
                 <option value="parent">Parent</option>
               </select>

@@ -18,3 +18,48 @@ label {
 .form-section {
   margin-bottom: 30px;
 }
+
+.birthdate-label {
+  display:inline;
+  flex:1;
+  margin:3px;
+  text-align:left;
+}
+
+.birthdate {
+  display: flex;
+  justify-content: space-between;
+  width:100%;
+  max-width: 500px;
+}
+
+.birthdate input {
+  flex:2;
+}
+
+#student_first {
+  margin:3px;
+  padding:5px;
+  font-size:20px;
+}
+
+#student_last {
+  margin:3px;
+  padding:5px;
+  font-size:20px;
+}
+
+#birth_date {
+  margin-top:3px;
+  margin-bottom:3px;
+  padding:5px;
+  font-size:20px;
+  font-family: "Open Sans", sans-serif;
+  height:37px;
+}
+
+#parent_email {
+  margin:3px;
+  padding:5px;
+  font-size:20px;
+}

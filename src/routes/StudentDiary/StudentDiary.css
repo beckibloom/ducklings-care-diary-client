@@ -23,8 +23,8 @@
 
 div.comment {
   border: 1px solid black;
-  margin-top: 5px;
   padding:3px;
+  margin:10px;
 }
 
 .note {
