@@ -41,7 +41,7 @@ class Nav extends React.Component {
             </Link>
           </div>
         )
-      }
+      } 
   }
 
   componentDidMount() {
@@ -49,6 +49,9 @@ class Nav extends React.Component {
       UsersApiService.getUserData((resJson) => {
         resJson
           .then(resJson => {
+            if(!resJson.type) {
+              this.context.setAdminStatus(false)
+            }
             if(resJson.type === 'parent') {
               this.context.setAdminStatus(resJson.type)
             }
