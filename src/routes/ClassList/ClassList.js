@@ -31,35 +31,35 @@ class ClassList extends React.Component {
     let teacherId;
     if (this.props.match) {
       teacherId = this.props.match.params.teacherId
-    }
+    };
     StudentsApiService.getStudentsByTeacher(teacherId)
       .then(studentsOfTeacher => {
         this.context.setStudents(studentsOfTeacher);
       })
-      .catch(err => this.context.setError(err))
+      .catch(err => this.context.setError(err));
 
     UsersApiService.getUserData((resJson) => {
       resJson
         .then(resJson => {
           if (resJson.type === 'parent') {
-            this.context.setAdminStatus(resJson.type)
+            this.context.setAdminStatus(resJson.type);
             StudentsApiService.getStudentByParent()
               .then(res => {
-                this.props.history.push(`/student/${res.id}`)
-                return
-              })
-          }
+                this.props.history.push(`/student/${res.id}`);
+                return;
+              });
+          };
           if (resJson.type === 'teacher') {
-            this.context.setAdminStatus(resJson.type)
-            this.context.updateTeacherId(resJson.id)
+            this.context.setAdminStatus(resJson.type);
+            this.context.updateTeacherId(resJson.id);
             if (resJson.id !== teacherId) {
-              this.props.history.push(`/class/${resJson.id}`)
-              return
-            }
-          }
-        })
-      })
-  }
+              this.props.history.push(`/class/${resJson.id}`);
+              return;
+            };
+          };
+        });
+      });
+  };
 
   render() {
     return (
@@ -80,8 +80,8 @@ class ClassList extends React.Component {
           </ul>
         </section>
       </>
-    )
-  }
-}
+    );
+  };
+};
 
 export default ClassList;

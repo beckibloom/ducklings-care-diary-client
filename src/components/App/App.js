@@ -32,7 +32,7 @@ class App extends React.Component {
   updateTeacherId = (id) => {
     this.setState({
       teacherId: id,
-    })
+    });
   };
 
   updateParentEmail = (email) => {
@@ -47,7 +47,6 @@ class App extends React.Component {
     this.setState({
       users: users
     });
-    // this.setState({users: [...this.state.users,user]})s
   };
 
   addStudentToContext = (student) => {
@@ -79,7 +78,7 @@ class App extends React.Component {
   setAdminStatus = (status) => {
     this.setState({
       admin: status,
-    })
+    });
   };
 
   setStudents = (students) => {
@@ -90,16 +89,15 @@ class App extends React.Component {
 
   filterNotesByStudent = (studentId) => {
     const notes = this.state.notes;
-    // eslint-disable-next-line
     const notesForStudent = notes.filter(note => note.student_id == studentId);
     this.setState({
       studentNotes: notesForStudent,
-    })
+    });
   };
 
   setError = (error) => {
     this.setState({error})
-  }
+  };
 
   render() {
     const contextValue = {
@@ -120,7 +118,7 @@ class App extends React.Component {
       filterNotesByStudent: this.filterNotesByStudent,
       updateParentEmail: this.updateParentEmail,
       setError: this.setError,
-    }
+    };
 
     return (
       <DiaryContext.Provider value={contextValue}>
@@ -182,7 +180,7 @@ class App extends React.Component {
       </main>
       </DiaryContext.Provider>
     );
-  }
-}
+  };
+};
 
 export default App;

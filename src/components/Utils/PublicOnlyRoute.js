@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import React, { useContext } from 'react';
+import { Route, Redirect } from 'react-router-dom';
 import DiaryContext from '../../DiaryContext';
 
 export default function PublicOnlyRoute({ component, ...props }) {
-  const Component = component
+  const Component = component;
   const contextObj = useContext(DiaryContext);
 
   return (
@@ -15,5 +15,5 @@ export default function PublicOnlyRoute({ component, ...props }) {
           : <Component {...componentProps} />
       )}
     />
-  )
-}
+  );
+};

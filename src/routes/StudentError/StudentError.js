@@ -14,8 +14,8 @@ class AuthError extends React.Component {
         <p><Link to="/">Return to home page</Link></p>
       </section>
       </>
-    )
-  }
-}
+    );
+  };
+};
 
 export default AuthError;

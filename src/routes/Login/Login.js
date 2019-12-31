@@ -16,7 +16,7 @@ class Login extends React.Component {
       error: null,
       username_error: null,
       password_error: null,
-    }
+    };
   }
 
   static contextType = DiaryContext;
@@ -43,7 +43,7 @@ class Login extends React.Component {
     }
 
     return true;
-  }
+  };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -52,7 +52,7 @@ class Login extends React.Component {
       const credentials = {
         username: this.state.username,
         password: this.state.password
-      }
+      };
 
       AuthApiService.postLogin(credentials)
         .then(res =>
@@ -62,21 +62,21 @@ class Login extends React.Component {
             resJson
               .then(resJson => {
                 if (resJson.type === 'parent') {
-                  this.context.setAdminStatus(resJson.type)
+                  this.context.setAdminStatus(resJson.type);
                   StudentsApiService.getStudentByParent()
                     .then(res => {
                       if (res === null) {
-                        console.log('No student linked to this parent')
+                        console.log('No student linked to this parent');
                       } else {
-                        this.props.history.push(`/student/${res.id}`)
-                      }
-                    })
-                }
+                        this.props.history.push(`/student/${res.id}`);
+                      };
+                    });
+                };
                 if (resJson.type === 'teacher') {
-                  this.context.setAdminStatus(resJson.type)
-                  this.context.updateTeacherId(resJson.id)
-                  this.props.history.push(`/class/${resJson.id}`)
-                }
+                  this.context.setAdminStatus(resJson.type);
+                  this.context.updateTeacherId(resJson.id);
+                  this.props.history.push(`/class/${resJson.id}`);
+                };
               })
               .catch(err => this.setState({
                 username_error: 'Invalid username or password'
@@ -85,22 +85,22 @@ class Login extends React.Component {
         .catch(err => this.setState({
           username_error: 'Invalid username or password'
         }));
-    }
-  }
+    };
+  };
 
   updateState = (e) => {
     const key = e.target.id;
     const value = e.target.value;
     this.setState({
       [key]: value
-    })
-  }
+    });
+  };
 
   componentDidMount() {
     if (this.context.users === []) {
       this.context.setStore();
-    }
-  }
+    };
+  };
 
   render() {
     return (
@@ -129,8 +129,8 @@ class Login extends React.Component {
           </form>
         </section>
       </>
-    )
-  }
-}
+    );
+  };
+};
 
 export default Login;

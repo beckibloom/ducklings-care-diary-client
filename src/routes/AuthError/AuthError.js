@@ -15,8 +15,8 @@ class AuthError extends React.Component {
         <p><Link to="/register">Register</Link></p>
       </section>
       </>
-    )
-  }
-}
+    );
+  };
+};
 
 export default AuthError;

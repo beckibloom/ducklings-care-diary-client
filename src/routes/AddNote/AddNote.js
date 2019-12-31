@@ -11,7 +11,7 @@ class AddNote extends React.Component {
     this.state = {
       note: '',
       error: '',
-    }
+    };
   }
 
   static contextType = DiaryContext;
@@ -20,53 +20,53 @@ class AddNote extends React.Component {
     if (this.state.note.length === 0) {
       this.setState({
         error: `You can't submit an empty note!`
-      })
+      });
       return false;
     } else {
       this.setState({
         error: ''
-      })
+      });
       return true;
-    }
-  }
+    };
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
     let studentId;
     if (this.props.match) {
-      studentId = this.props.match.params.studentId
-    }
+      studentId = this.props.match.params.studentId;
+    };
     let readyToSubmit = this.validateFields();
     if (readyToSubmit === true) {
       const newNote = {
         student_id: studentId,
         date: new Date().toDateString(),
         comment: this.state.note,
-      }
+      };
 
       DiaryApiService.postNote(newNote)
         .then(res => this.props.history.push(`/class/${this.context.teacherId}`))
-        .catch(err => this.context.setError(err))     
-    }
-  }
+        .catch(err => this.context.setError(err));   
+    };
+  };
 
   updateState = (e) => {
     const key = e.target.id;
     const value = e.target.value;
     this.setState({
       [key]: value
-    })
-  }
+    });
+  };
 
   goBack = (e) => {
     e.preventDefault();
     this.props.history.goBack();
-  }
+  };
 
   componentDidMount() {
     if (!this.props.match) {
-      return
-    }
+      return;
+    };
     const studentId = this.props.match.params.studentId;
     StudentsApiService.getStudentById(studentId)
       .then(student => {
@@ -74,26 +74,26 @@ class AddNote extends React.Component {
           resJson
             .then(resJson => {
               if (resJson.type === 'parent') {
-                this.context.setAdminStatus(resJson.type)
+                this.context.setAdminStatus(resJson.type);
                 StudentsApiService.getStudentByParent()
                   .then(res => {
-                    this.props.history.push(`/student/${res.id}`)
-                    return
+                    this.props.history.push(`/student/${res.id}`);
+                    return;
                   })
-              }
+              };
               if (resJson.type === 'teacher') {
-                this.context.setAdminStatus(resJson.type)
-                this.context.updateTeacherId(resJson.id)
+                this.context.setAdminStatus(resJson.type);
+                this.context.updateTeacherId(resJson.id);
                 if (resJson.id !== student.teacher_id) {
-                  this.props.history.push(`/class/${resJson.id}`)
-                  return
-                }
-              }
-            })
-        })
+                  this.props.history.push(`/class/${resJson.id}`);
+                  return;
+                };
+              };
+            });
+        });
       })
       .catch(err => this.context.setError(err))
-  }
+  };
   
   render() {
     return (
@@ -113,8 +113,8 @@ class AddNote extends React.Component {
         <p className="error">{this.state.error}</p>
       </section>
     </div>
-    )
-  }
-}
+    );
+  };
+};
 
 export default AddNote;

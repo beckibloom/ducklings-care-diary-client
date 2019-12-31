@@ -14,7 +14,7 @@ class Register extends React.Component {
       password_error: null,
       type: '',
       error: null,
-    }
+    };
   }
 
   static contextType = DiaryContext;
@@ -31,7 +31,7 @@ class Register extends React.Component {
       this.setState({
         username_error: null
       });
-    }
+    };
 
     if (this.state.password === null) {
       this.setState({
@@ -65,7 +65,7 @@ class Register extends React.Component {
     }
 
     return true;
-  }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -83,7 +83,7 @@ class Register extends React.Component {
           }))
         .then(this.props.history.push(`/login`))
         .catch(this.context.setError);
-    }
+    };
   };
 
   updateUserType = (e) => {
@@ -98,8 +98,8 @@ class Register extends React.Component {
     const value = e.target.value;
     this.setState({
       [key]: value
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -127,8 +127,8 @@ class Register extends React.Component {
         <p className="error">{this.state.username_error}</p>
         <p className="error">{this.state.password_error}</p>
       </section>
-    )
-  }
-}
+    );
+  };
+};
 
 export default withRouter(Register);

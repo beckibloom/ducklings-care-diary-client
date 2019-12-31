@@ -15,7 +15,7 @@ const DiaryApiService = {
         return (!res.ok)
           ? res.json().then(e=>Promise.reject(e))
           : res.json()
-      })
+      });
   },
 
   getNotesByStudentId(student_id) {
@@ -30,7 +30,7 @@ const DiaryApiService = {
         return (!res.ok) 
           ? res.json().then(e=>Promise.reject(e))
           : res.json()
-      })
+      });
   },
 
   deleteEntry(student_id, entry_id) {
@@ -45,8 +45,8 @@ const DiaryApiService = {
         if (!res.ok) {
           return res.json().then(e=>{throw e})
         }
-      })
+      });
   },
-}
+};
 
 export default DiaryApiService;

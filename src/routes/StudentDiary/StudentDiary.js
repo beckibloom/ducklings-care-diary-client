@@ -20,8 +20,9 @@ class StudentDiary extends React.Component {
         parent_email: '',
       },
       notes: [],
-    }
+    };
   }
+
   static contextType = DiaryContext;
 
   deleteStudent = (e) => {
@@ -30,11 +31,13 @@ class StudentDiary extends React.Component {
       e.preventDefault();
       StudentsApiService.deleteStudent(this.state.student.id)
         .then(res => {
-          this.props.history.push(`/class/${this.state.student.teacher_id}`)
+          this.props.history.push(`/class/${this.state.student.teacher_id}`);
         })
-        .catch(err => this.context.setError(err))  
-    }
-  }
+        .catch(
+          err => this.context.setError(err);
+        );
+    };
+  };
 
   renderTeacherButtons = () => {
     if(this.context.admin === 'teacher') {
@@ -51,14 +54,14 @@ class StudentDiary extends React.Component {
             <button>Return to class list</button>
           </Link>
         </div>
-      )
-    }
-  }
+      );
+    };
+  };
 
   componentDidMount() {
     if (!this.props.match) {
-      return
-    }
+      return;
+    };
     const studentId = this.props.match.params.studentId;
     StudentsApiService.getStudentById(studentId)
       .then(student => this.setState({student: student}))
@@ -67,35 +70,35 @@ class StudentDiary extends React.Component {
           resJson
             .then(resJson => {
               if (resJson.type === 'parent') {
-                this.context.setAdminStatus(resJson.type)
+                this.context.setAdminStatus(resJson.type);
                 StudentsApiService.getStudentByParent()
                   .then(res => {
-                    this.props.history.push(`/student/${res.id}`)
-                    return
-                  })
-              }
+                    this.props.history.push(`/student/${res.id}`);
+                    return;
+                  });
+              };
               if (resJson.type === 'teacher') {
-                this.context.setAdminStatus(resJson.type)
-                this.context.updateTeacherId(resJson.id)
+                this.context.setAdminStatus(resJson.type);
+                this.context.updateTeacherId(resJson.id);
                 if (resJson.id !== this.state.student.teacher_id) {
-                  this.props.history.push(`/class/${resJson.id}`)
-                  return
-                }
-              }
-            })
-        })
+                  this.props.history.push(`/class/${resJson.id}`);
+                  return;
+                };
+              };
+            });
+        });
       })
-      .catch(err => this.context.setError(err))
+      .catch(err => this.context.setError(err));
 
     DiaryApiService.getNotesByStudentId(this.props.match.params.studentId)
       .then(notes => this.setState({notes: notes}))
-      .catch(err => this.context.setError(err))
-  }
+      .catch(err => this.context.setError(err));
+  };
 
   editProfile = (e) => {
     e.preventDefault();
     const studentId = this.state.student.id;
-    this.props.history.push(`/student/${studentId}/edit`)
+    this.props.history.push(`/student/${studentId}/edit`);
   };
 
   render() {
@@ -121,8 +124,8 @@ class StudentDiary extends React.Component {
         </div>
       </section>
     </>
-    )
-  }
-}
+    );
+  };
+};
 
 export default StudentDiary;

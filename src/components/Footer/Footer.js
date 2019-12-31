@@ -7,8 +7,8 @@ class Footer extends React.Component {
       <footer>
         Ducklings Care Diary by <a href="https://github.com/beckibloom">beckibloom</a>
       </footer>
-    )
-  }
-}
+    );
+  };
+};
 
 export default Footer;

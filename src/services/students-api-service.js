@@ -31,7 +31,7 @@ const StudentsApiService = {
         return (!res.ok)
           ? res.json().then(e=>Promise.reject(e))
           : res.json()
-      })
+      });
   },
 
   getStudentById(student_id) {
@@ -60,9 +60,9 @@ const StudentsApiService = {
     })
       .then(res => {
         if (!res.ok) {
-          return res.json().then(e=>{throw e})
+          return res.json().then(e=>{throw e});
         }
-      })
+      });
   },
 
   putStudent(student) {
@@ -76,7 +76,7 @@ const StudentsApiService = {
     })
       .then(res => {
         if (!res.ok) {
-          return res.json().then(e=>{throw e})
+          return res.json().then(e=>{throw e});
         }
       });
   },
@@ -91,9 +91,9 @@ const StudentsApiService = {
     })
       .then(res => {
         if (!res.ok) {
-          return res.json().then(e=>{throw e})
+          return res.json().then(e=>{throw e});
         }
-      })
+      });
   },
 };
 

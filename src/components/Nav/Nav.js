@@ -13,7 +13,7 @@ class Nav extends React.Component {
     e.preventDefault();
     this.context.setAdminStatus(false);
     TokenService.clearAuthToken();
-    this.props.history.push('/')
+    this.props.history.push('/');
   }
 
   renderLoginLogout = () => {
@@ -23,13 +23,14 @@ class Nav extends React.Component {
         <button>
           Log in
         </button>
-      </Link>)
+      </Link>
+      );
     } else if (this.context.admin === 'parent') {
       return (
         <button onClick={this.logOut}>
           Log out
         </button>
-      )
+      );
       } else if (this.context.admin === 'teacher') {
         return (
           <div>
@@ -40,9 +41,9 @@ class Nav extends React.Component {
               <button>Go to class list</button>
             </Link>
           </div>
-        )
-      } 
-  }
+        );
+      };
+  };
 
   componentDidMount() {
     if (TokenService.getAuthToken()) {
@@ -50,20 +51,20 @@ class Nav extends React.Component {
         resJson
           .then(resJson => {
             if(!resJson.type) {
-              this.context.setAdminStatus(false)
-            }
+              this.context.setAdminStatus(false);
+            };
             if(resJson.type === 'parent') {
-              this.context.setAdminStatus(resJson.type)
-            }
+              this.context.setAdminStatus(resJson.type);
+            };
             if(resJson.type === 'teacher') {
-              this.context.setAdminStatus(resJson.type)
-              this.context.updateTeacherId(resJson.id)
-            }
+              this.context.setAdminStatus(resJson.type);
+              this.context.updateTeacherId(resJson.id);
+            };
           })
-          .catch(err => this.context.setError(err))
-      })
-    }
-  }
+          .catch(err => this.context.setError(err));
+      });
+    };
+  };
 
   render() {
     return (
@@ -79,8 +80,8 @@ class Nav extends React.Component {
           </li>
         </ul>
       </nav>
-      )
-  }
-}
+      );
+  };
+};
 
 export default withRouter(Nav);

@@ -13,7 +13,7 @@ class AddStudent extends React.Component {
       student_last: '',
       birth_date: '',
       parent_email: '',
-    }
+    };
   }
 
   static contextType = DiaryContext;
@@ -34,31 +34,31 @@ class AddStudent extends React.Component {
           this.context.addStudentToContext(student);this.props.history.push(`/class/${this.context.teacherId}`);
         })
         .catch(err => {
-          this.context.setError(err)
-        })
+          this.context.setError(err);
+        });
     };
-  };
+  }
 
   validateBirthDate = (input) => {
     return moment(input).isValid();
-  }
+  };
 
   validateFields = () => {
     if (this.state.student_first.length === 0 || this.state.student_last.length === 0 || this.state.birth_date.length === 0 || this.state.parent_email.length === 0) {
       this.setState({
         error: 'First name, last name, or birth date may not be left blank.'
-      })
+      });
       return false;
     } else {
       this.setState({
         error: '',
-      })
+      });
     }
 
     if (this.validateBirthDate(this.state.birth_date) === false) {
       this.setState({
         dateError: 'Expected date format is MM/DD/YYYY'
-      })
+      });
       return false;
     } else {
       this.setState({
@@ -69,7 +69,7 @@ class AddStudent extends React.Component {
     if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.parent_email)) {
       this.setState({
         emailError: ''
-      })
+      });
       return true;
     } else {
       this.setState({
@@ -77,7 +77,7 @@ class AddStudent extends React.Component {
       });
       return false;
     }
-  }
+  };
 
   updateState = (e) => {
     const key = e.target.id;
@@ -85,30 +85,30 @@ class AddStudent extends React.Component {
     this.setState({
       [key]: value,
     });
-  }
+  };
 
   goBack = () => {
     this.props.history.goBack();
-  }
+  };
 
   componentDidMount() {
     UsersApiService.getUserData((resJson) => {
       resJson
         .then(resJson => {
           if (resJson.type === 'parent') {
-            this.context.setAdminStatus(resJson.type)
+            this.context.setAdminStatus(resJson.type);
             StudentsApiService.getStudentByParent()
               .then(res => {
-                this.props.history.push(`/student/${res.id}`)
-                return
-              })
+                this.props.history.push(`/student/${res.id}`);
+                return;
+              });
           }
           if (resJson.type === 'teacher') {
-            this.context.setAdminStatus(resJson.type)
-            this.context.updateTeacherId(resJson.id)
+            this.context.setAdminStatus(resJson.type);
+            this.context.updateTeacherId(resJson.id);
           }
-        })
-    })
+        });
+    });
   }
 
   render() {
@@ -169,8 +169,8 @@ class AddStudent extends React.Component {
         </form>
       </section>
     </>
-    )
-  }
-}
+    );
+  };
+};
 
 export default AddStudent;

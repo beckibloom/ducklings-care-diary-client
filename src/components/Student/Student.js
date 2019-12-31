@@ -8,7 +8,6 @@ class Student extends React.Component {
 
   filterNotes = (e) => {
     e.preventDefault();
-    //get student notes
     const studentId = this.props.studentId;
     this.context.filterNotesByStudent(studentId);
     this.props.history.push(`/student/${studentId}`);
@@ -17,13 +16,13 @@ class Student extends React.Component {
   addNote = (e) => {
     e.preventDefault();
     const studentId = this.props.studentId;
-    this.props.history.push(`/student/${studentId}/addnote`)
+    this.props.history.push(`/student/${studentId}/addnote`);
   };
 
   editProfile = (e) => {
     e.preventDefault();
     const studentId = this.props.studentId;
-    this.props.history.push(`/student/${studentId}/edit`)
+    this.props.history.push(`/student/${studentId}/edit`);
   };
 
   render() {
@@ -42,8 +41,8 @@ class Student extends React.Component {
           </ul>
         </div>
       </li>
-    )
-  }
-}
+    );
+  };
+};
 
 export default withRouter(Student);

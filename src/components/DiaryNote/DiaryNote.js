@@ -9,7 +9,7 @@ class DiaryNote extends React.Component {
     super(props);
     this.state = {
       deleted: false,
-    }
+    };
   }
 
   static defaultProps = {
@@ -19,14 +19,14 @@ class DiaryNote extends React.Component {
       date: '',
       comment: '',
     },
-  }
+  };
 
   static contextType = DiaryContext;
 
   renderDate = () => {
     let date = new Date(this.props.note.date);
     return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
-  }
+  };
 
   deleteNote = (e) => {
     let r = window.confirm('Are you sure you want to delete this diary entry?');
@@ -38,19 +38,19 @@ class DiaryNote extends React.Component {
         .then(res => {
           this.setState({
             deleted: true,
-          })
+          });
         })
-        .catch(err => this.context.setError(err))
-      }
-  }
+        .catch(err => this.context.setError(err));
+      };
+  };
 
   renderButtons = () => {
     if (this.context.admin === 'teacher') {
       return (
         <button className="delete" onClick={this.deleteNote}>Delete Entry</button>
-      )
-    } 
-  }
+      );
+    };
+  };
 
   renderEntry = () => {
     if (this.state.deleted === false) {
@@ -62,17 +62,17 @@ class DiaryNote extends React.Component {
           {this.renderButtons()}
         </div>
         </li>
-      )
+      );
     } else {
       return null
-    }
-  }
+    };
+  };
 
   render() {
     return (
       this.renderEntry()
-    )
-  }
-}
+    );
+  };
+};
 
 export default withRouter(DiaryNote);
